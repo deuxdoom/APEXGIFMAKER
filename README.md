@@ -57,9 +57,7 @@ ApexGIFMaker_x64/
 ├─ ffmpeg-bin/
 │ ├─ ffmpeg.exe
 │ └─ ffprobe.exe
-├─ cache/ # 프리뷰/타임라인/스캔 캐시
-├─ ATTRIBUTION.txt # Flaticon 아이콘 고지
-└─ LICENSE # MIT
+└─ cache/ # 프리뷰/타임라인/스캔 캐시
 ```
 
 ---
