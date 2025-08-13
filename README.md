@@ -1,4 +1,5 @@
-<!-- SHIELDS (edit OWNER/REPO once published) -->
+![Apex GIF Maker](./main.png)
+
 <p align="center">
   <a href="https://github.com/OWNER/REPO/releases/latest">
     <img alt="Download" src="https://img.shields.io/badge/Download-Releases-2ea44f?logo=github">
