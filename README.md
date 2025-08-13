@@ -1,4 +1,6 @@
-![Apex GIF Maker](./main.png)
+<p align="center">
+  <img src="main.png" alt="ApexGIFMaker 메인 UI" width="720">
+</p>
 <h1 align=center>
   <img src="./logo.png" alt="APEX GIF MAKER Logo" width="60" style="vertical-align: middle;">
   Apex GIF Maker (MP4 → GIF)
@@ -45,11 +47,11 @@
 ```text
 ApexGIFMaker/
 ├─ ApexGIFMaker.exe       # 메인 실행 파일
-├─ ffmpeg-bin/            # ffmpeg.exe / ffprobe.exe (없으면 최초 실행 시 자동 다운로드)
+├─ ffmpeg-bin/            # ffmpeg/ffprobe 자동 준비 후 보관
 │  ├─ ffmpeg.exe
 │  └─ ffprobe.exe
-├─ cache/                 # 썸네일 프리뷰, 프레임등 관련 캐시 저장 폴더
-├─ ATTRIBUTION.txt        # Flaticon
+├─ cache/                 # 프리뷰/타임라인/스캔 캐시
+├─ ATTRIBUTION.txt        # Flaticon 아이콘 고지
 └─ LICENSE (MIT)
 ```
 
@@ -119,6 +121,13 @@ ApexGIFMaker/
 
 ---
 
+## 📝 Attribution
+
+Icon: **"GIF file"** by Freepik on **Flaticon**  
+Link: https://www.flaticon.com/free-icon/gif-file_3979434  
+License: Free for commercial use with attribution.
+
+---
 ## 🤝 기여
 - 버그 리포트/PR 환영  
 - 이슈 등록 시 **Windows 버전 / 재현 단계 / 로그** 첨부
