@@ -4,29 +4,18 @@
   Apex GIF Maker (MP4 → GIF)
 </h1>
 
-<p align="center">
-  <a href="https://github.com/OWNER/REPO/releases/latest">
-    <img alt="Download" src="https://img.shields.io/badge/Download-Releases-2ea44f?logo=github">
-  </a>
-  <a href="https://python.org">
-    <img alt="Python" src="https://img.shields.io/badge/Runtime-Embedded%20Python-blue">
-  </a>
-  <a href="#">
-    <img alt="Version" src="https://img.shields.io/badge/Version-v1.0.0-6f42c1">
-  </a>
-  <a href="#">
-    <img alt="OS" src="https://img.shields.io/badge/OS-Windows%2010%2F11%20x64-2ea44f?logo=windows&logoColor=white">
-  </a>
-  <a href="./LICENSE">
-    <img alt="License" src="https://img.shields.io/badge/License-MIT-informational">
-  </a>
-</p>
+[![Download](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/OWNER/REPO/releases/latest)
+[![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org)
+[![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org)
+[![Version](https://img.shields.io/badge/Version-v1.0.0-6f42c1)](#)
+[![OS](https://img.shields.io/badge/OS-Windows%2010%2F11%20x64-2ea44f?logo=windows&logoColor=white)](#)
+[![License](https://img.shields.io/badge/License-MIT-informational)](./LICENSE)
 
 
 
 <p align="center">
   듀얼 핸들 타임라인과 2분할 프리뷰로 <b>2–10초</b> 구간을 잘라 고품질 GIF를 만드는 포터블(무설치) 도구.<br/>
-  내부적으로 <code>FFmpeg</code>를 사용하며, 최초 실행 시 자동 준비한다.
+  <code>FFmpeg</code>를 사용하며, 최초 실행 시 자동으로 다운함.
 </p>
 
 ---
