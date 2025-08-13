@@ -7,14 +7,13 @@
 [![Release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat&label=RELEASE)](https://github.com/deuxdoom/TVerDownloader/releases/latest)
 [![Downloads Latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat&label=DOWNLOADS@LATEST)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![Downloads Total](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
-[![Release](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 [![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org)
 [![Version](https://img.shields.io/badge/Version-v1.0.0-6f42c1)](#)
 [![OS](https://img.shields.io/badge/OS-Windows%2010%2F11%20x64-2ea44f?logo=windows&logoColor=white)](#)
 [![License](https://img.shields.io/badge/License-MIT-informational)](./LICENSE)
 
-
+---
 
 <p align="center">
   듀얼 핸들 타임라인과 2분할 프리뷰로 <b>2–10초</b> 구간을 잘라 고품질 GIF를 만드는 포터블(무설치) GUI 툴.<br/>
