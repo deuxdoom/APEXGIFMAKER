@@ -1,4 +1,8 @@
 ![Apex GIF Maker](./main.png)
+<h1 align=center>
+  <img src="./logo.png" alt="APEX GIF MAKER Logo" width="60" style="vertical-align: middle;">
+  Apex GIF Maker (MP4 → GIF)
+</h1>
 
 <p align="center">
   <a href="https://github.com/OWNER/REPO/releases/latest">
@@ -18,7 +22,7 @@
   </a>
 </p>
 
-<h1 align="center">Apex GIF Maker (MP4 → GIF)</h1>
+
 
 <p align="center">
   듀얼 핸들 타임라인과 2분할 프리뷰로 <b>2–10초</b> 구간을 잘라 고품질 GIF를 만드는 포터블(무설치) 도구.<br/>
