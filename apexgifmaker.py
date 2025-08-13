@@ -2,7 +2,7 @@
 """
 apexgifmaker.py — Apex GIF Maker (MP4 → GIF), PySide6 + FFmpeg
 
-v1.1.1
+v1.1.0
 - GitHub 최신 버전 자동/수동 확인(팝업): v1.0.0 기준, 최신 릴리스 있으면 이동 여부 확인
 
 아이콘 출처(권장): Flaticon — https://www.flaticon.com/free-icon/gif-file_3979434
@@ -32,7 +32,7 @@ from PySide6.QtWidgets import (
 )
 
 APP_TITLE   = "Apex GIF Maker (MP4 → GIF)"
-APP_VERSION = "1.1.1"  # 릴리스 태그와 맞추어 갱신 (예: v1.1.0 → "1.1.0")
+APP_VERSION = "1.1.0"  # 릴리스 태그와 맞추어 갱신 (예: v1.1.0 → "1.1.0")
 REPO_OWNER  = "deuxdoom"
 REPO_NAME   = "APEXGIFMAKER"
 GITHUB_API_LATEST  = f"https://api.github.com/repos/deuxdoom/APEXGIFMAKER/releases/latest"
