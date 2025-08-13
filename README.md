@@ -9,7 +9,6 @@
 [![Downloads Total](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 [![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org)
-[![Version](https://img.shields.io/badge/Version-v1.0.0-6f42c1)](#)
 [![OS](https://img.shields.io/badge/OS-Windows%2010%2F11%20x64-2ea44f?logo=windows&logoColor=white)](#)
 [![License](https://img.shields.io/badge/License-MIT-informational)](./LICENSE)
 
