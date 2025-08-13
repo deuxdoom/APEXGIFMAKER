@@ -4,9 +4,9 @@
   Apex GIF Maker (MP4 → GIF)
 </h1>
 
-[![Release](https://img.shields.io/github/release/deuxdoom/TVerDownloader?logo=github&style=flat&label=RELEASE)](https://github.com/deuxdoom/TVerDownloader/releases/latest)
-[![Downloads Latest](https://img.shields.io/github/downloads/deuxdoom/TVerDownloader/latest/total?logo=github&style=flat&label=DOWNLOADS@LATEST)](https://github.com/deuxdoom/TVerDownloader/releases/latest)
-[![Downloads Total](https://img.shields.io/github/downloads/deuxdoom/TVerDownloader/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/TVerDownloader/releases)
+[![Release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat&label=RELEASE)](https://github.com/deuxdoom/TVerDownloader/releases/latest)
+[![Downloads Latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat&label=DOWNLOADS@LATEST)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![Downloads Total](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 [![Release](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 [![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org)
