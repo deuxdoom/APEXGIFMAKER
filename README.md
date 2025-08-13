@@ -4,7 +4,7 @@
   Apex GIF Maker (MP4 → GIF)
 </h1>
 
-[![Download](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/OWNER/REPO/releases/latest)
+[![Download](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 [![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org)
 [![Version](https://img.shields.io/badge/Version-v1.0.0-6f42c1)](#)
@@ -14,7 +14,7 @@
 
 
 <p align="center">
-  듀얼 핸들 타임라인과 2분할 프리뷰로 <b>2–10초</b> 구간을 잘라 고품질 GIF를 만드는 포터블(무설치) 도구.<br/>
+  듀얼 핸들 타임라인과 2분할 프리뷰로 <b>2–10초</b> 구간을 잘라 고품질 GIF를 만드는 포터블(무설치) GUI 툴.<br/>
   <code>FFmpeg</code>를 사용하며, 최초 실행 시 자동으로 다운함.
 </p>
 
@@ -37,7 +37,7 @@
 > **설치가 필요 없다.** 압축 해제 후 실행만 하면 된다.
 
 - 🔽 **최신 버전 받기**  
-  👉 [**Releases 페이지**](https://github.com/OWNER/REPO/releases/latest)에서  
+  👉 [**Releases 페이지**](https://github.com/deuxdoom/APEXGIFMAKER/releases)에서  
   `ApexGIFMaker_xxx.zip` 다운로드 → 압축 해제 → `ApexGIFMaker.exe` 실행
 
 - 📦 포함 파일(권장 배포 형태)
