@@ -47,11 +47,12 @@
   `ApexGIFMaker_v1.0.0_Windows_x64.zip` 다운로드 → 압축 해제 → `ApexGIFMaker.exe` 실행
 
 - 📦 포함 파일(권장 배포 형태)
+```text
 ApexGIFMaker/
 ├─ ApexGIFMaker.exe
 ├─ ffmpeg-bin/ # ffmpeg.exe / ffprobe.exe (없으면 최초 실행 시 자동 다운로드)
 └─ cache/ # 실행 중 자동 생성 (삭제해도 무방)
-
+```
 
 - 🧾 무결성 확인(선택)
 - `SHA256SUMS.txt`가 제공될 경우, 해시를 비교한다.
