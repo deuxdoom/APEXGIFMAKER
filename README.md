@@ -12,19 +12,19 @@
 
 <h1 align=center>
   <img src="./logo.png" alt="APEX GIF MAKER Logo" width="60" style="vertical-align: middle;">
-  Apex GIF Maker (MP4 → GIF)
+  APEX GIF MAKER (MP4 → GIF)
 </h1>
 
 | [![Release](https://img.shields.io/github/v/release/deuxdoom/APEXGIFMAKER?display_name=tag&sort=semver)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest) [![Downloads](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?color=2ea44f)](https://github.com/deuxdoom/APEXGIFMAKER/releases) [![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org) [![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org) [![OS](https://img.shields.io/badge/OS-Windows%2010%2F11%20x64-2ea44f?logo=windows&logoColor=white)](#) [![License](https://img.shields.io/badge/License-MIT-informational)](./LICENSE) |
 |:--:|
 
-플라이디지 **APEX** 게임패드 스크린용 **MP4 → GIF 메이커**
-구간을 드래그로 선택하고, 프리뷰 확인 후 한 번에 GIF를 만든다.
+플라이디지 **APEX** 게임패드 스크린용 **MP4 to GIF 메이커**
+영상을 불러와 원하는 구간을 선택하고, 프리뷰 확인 후 GIF로 변환하는 프로그램
 
 ---
 
 ## ✨ 주요 기능
-- **구간 선택(2–10초 강제)**: 슬라이더 드래그 + 시간 직접 입력(hh:mm:ss.mmm)
+- **구간 선택**: 슬라이더 드래그 + 시간 직접 입력(hh:mm:ss.mmm)
 - **시작·끝 2분할 프리뷰**(1280×720), **2초 간격 타임라인 썸네일**
 - GIF 품질 최적화: **2-pass 팔레트**, **디더링(FS/Bayer/None)**, **FPS/해상도** 조절
 - 스케일 3가지: **꽉 채우기(크롭·기본)** / 레터박스(비율 유지) / 스트레치
@@ -73,7 +73,8 @@ ApexGIFMaker_x64/
 ## 🛠 트러블슈팅
 - **아이콘/작업표시줄이 기본 아이콘으로 나옴** → 기존 “작업 표시줄 고정” 해제 후 다시 고정(캐시 갱신)
 - **FFmpeg 다운로드 실패** → 네트워크 확인 후 재실행, 또는 메뉴에서 경로 수동 지정
-- **출력 GIF 없음** → 로그 창 오류 확인(구간 길이 2–6초 범위 준수 필요)
+- **출력 GIF 없음** → 로그 창 오류 확인
+- **FSS 4.0 GIF 업로드 실패** → 컨트롤러의 USB을 뽑고 전원을 껐다가 다시키고 USB 연결
 
 ---
 
