@@ -4,7 +4,10 @@
   Apex GIF Maker (MP4 → GIF)
 </h1>
 
-[![Download](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
+[![Release](https://img.shields.io/github/release/deuxdoom/TVerDownloader?logo=github&style=flat&label=RELEASE)](https://github.com/deuxdoom/TVerDownloader/releases/latest)
+[![Downloads Latest](https://img.shields.io/github/downloads/deuxdoom/TVerDownloader/latest/total?logo=github&style=flat&label=DOWNLOADS@LATEST)](https://github.com/deuxdoom/TVerDownloader/releases/latest)
+[![Downloads Total](https://img.shields.io/github/downloads/deuxdoom/TVerDownloader/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/TVerDownloader/releases)
+[![Release](https://img.shields.io/badge/Download-Releases-2ea44f?logo=github)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 [![Runtime](https://img.shields.io/badge/Runtime-Embedded%20Python-blue)](https://python.org)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-Auto%20Setup-2ea44f?logo=ffmpeg&logoColor=white)](https://ffmpeg.org)
 [![Version](https://img.shields.io/badge/Version-v1.0.0-6f42c1)](#)
@@ -43,9 +46,13 @@
 - 📦 포함 파일(권장 배포 형태)
 ```text
 ApexGIFMaker/
-├─ ApexGIFMaker.exe # 메인 실행 파일
-├─ ffmpeg-bin/ # ffmpeg.exe / ffprobe.exe (없으면 최초 실행 시 자동 다운로드)
-└─ cache/ # 썸네일 프리뷰, 프레임등 관련 캐시 저장 폴더
+├─ ApexGIFMaker.exe       # 메인 실행 파일
+├─ ffmpeg-bin/            # ffmpeg.exe / ffprobe.exe (없으면 최초 실행 시 자동 다운로드)
+│  ├─ ffmpeg.exe
+│  └─ ffprobe.exe
+├─ cache/                 # 썸네일 프리뷰, 프레임등 관련 캐시 저장 폴더
+├─ ATTRIBUTION.txt        # Flaticon
+└─ LICENSE (MIT)
 ```
 
 - 🧾 바이러스 오진이 발생하면 Windows SmartScreen/백신에서 예외로 등록 후 재실행.
