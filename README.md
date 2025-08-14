@@ -14,6 +14,7 @@
   <img src="./logo.png" alt="APEX GIF MAKER Logo" width="60" style="vertical-align: middle;">
   APEX GIF MAKER (MP4 → GIF)
 </h1>
+
 [![후원하기](https://img.shields.io/badge/후원하기-GitHub%20Sponsors-ff69b4?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/deuxdoom)
 [![RELEASE](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?style=flat&logo=github&logoColor=white&label=RELEASE&labelColor=2f353a&color=0ea5e9)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![DOWNLOADS@LATEST](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS%40LATEST&labelColor=2f353a&color=f59e0b)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
@@ -67,7 +68,7 @@
 
 ## 📦 릴리즈 구성
 ```text
-ApexGIFMaker_x64/
+ApexGIFMaker/
 ├─ ApexGIFMaker.exe
 ├─ ffmpeg-bin/
 │ ├─ ffmpeg.exe
