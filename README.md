@@ -4,7 +4,7 @@
 
 ## 🎥 데모
 
-| [![Watch the video](https://img.youtube.com/vi/-bZaF1CrjNI/maxresdefault.jpg)](https://youtu.be/-bZaF1CrjNI "Apex GIF Maker Demo") |
+| [![Watch the video](https://img.youtube.com/vi/-bZaF1CrjNI/maxresdefault.jpg)](https://youtu.be/1YqsQmWlwrU "Apex GIF Maker Demo") |
 |:--:|
 | *클릭하면 YouTube로 이동* |
 
