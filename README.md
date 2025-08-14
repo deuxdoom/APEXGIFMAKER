@@ -18,7 +18,7 @@
 [![RELEASE](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?style=flat&logo=github&logoColor=white&label=RELEASE&labelColor=2f353a&color=0ea5e9)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![DOWNLOADS@LATEST](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS%40LATEST&labelColor=2f353a&color=f59e0b)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![DOWNLOADS](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS&labelColor=2f353a&color=84cc16)](https://github.com/deuxdoom/APEXGIFMAKER/releases)  
-![Windows](https://img.shields.io/badge/WINDOWS%20X64-0078D6?style=flat-square&logo=windows11&logoColor=white)
+![PLATFORM](https://img.shields.io/badge/PLATFORM-WINDOWS%20X64-0078D6?style=flat&logo=windows11&logoColor=white)
 [![PYTHON](https://img.shields.io/badge/PYTHON-3.10%2B-3776ab?style=flat&logo=python&logoColor=white&labelColor=2f353a)](https://www.python.org/)
 [![PYSIDE6](https://img.shields.io/badge/PYSIDE6-GUI-10b981?style=flat&logo=qt&logoColor=white&labelColor=2f353a)](https://pypi.org/project/PySide6/)  
 [![MADE WITH](https://img.shields.io/badge/MADE%20WITH-FFMPEG-000000?style=flat&logo=ffmpeg&logoColor=white&labelColor=2f353a)](https://ffmpeg.org/)
