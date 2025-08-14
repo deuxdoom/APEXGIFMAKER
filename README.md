@@ -16,26 +16,16 @@
 </h1>
 
 <p align="center">
-  <!-- RELEASE (Github 동적) -->
-  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/latest">
-    <img src="https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?style=flat&logo=github&logoColor=white&label=RELEASE&labelColor=2f353a&color=0d6efd" alt="RELEASE">
-  </a>
-  <!-- DOWNLOADS (Github 동적: 전체) -->
-  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases">
-    <img src="https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS&labelColor=2f353a&color=8bc34a" alt="DOWNLOADS">
-  </a>
-  <!-- RUNTIME -->
-  <img src="https://img.shields.io/badge/RUNTIME-EMBEDDED%20PYTHON-2f80ed?style=flat&logo=python&logoColor=white&labelColor=2f353a" alt="RUNTIME Embedded Python">
-  <!-- FFMPEG -->
-  <img src="https://img.shields.io/badge/FFMPEG-ENABLED-000000?style=flat&logo=ffmpeg&logoColor=white&labelColor=2f353a" alt="FFMPEG Enabled">
-  <!-- AUTO SETUP -->
-  <img src="https://img.shields.io/badge/AUTO%20SETUP-YES-43a047?style=flat&labelColor=2f353a" alt="Auto Setup">
-  <!-- OS -->
-  <img src="https://img.shields.io/badge/OS-WINDOWS%2010%2F11%20X64-0078d4?style=flat&logo=windows&logoColor=white&labelColor=2f353a" alt="OS Windows 10/11 x64">
-  <!-- LICENSE -->
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/LICENSE-MIT-ffc107?style=flat&labelColor=2f353a" alt="License MIT">
-  </a>
+
+[![GITHUB RELEASE](https://img.shields.io/github/release/DEUXDOOM/APEXGIFMAKER?logo=github&style=flat&color=blue)](https://github.com/DEUXDOOM/APEXGIFMAKER/releases/latest)
+[![LATEST DOWNLOADS](https://img.shields.io/github/downloads/DEUXDOOM/APEXGIFMAKER/latest/total?logo=github&style=flat&color=brightgreen)](https://github.com/DEUXDOOM/APEXGIFMAKER/releases/latest)
+[![TOTAL DOWNLOADS](https://img.shields.io/github/downloads/DEUXDOOM/APEXGIFMAKER/total?logo=github&style=flat&color=orange)](https://github.com/DEUXDOOM/APEXGIFMAKER/releases)
+[![LICENSE: MIT](https://img.shields.io/badge/LICENSE-MIT-yellow?style=flat&logo=opensourceinitiative)](https://opensource.org/licenses/MIT)
+[![PYTHON](https://img.shields.io/badge/PYTHON-3.8%2B-blue?style=flat&logo=python)](https://www.python.org/)
+[![PYQT6](https://img.shields.io/badge/PYQT-6-brightgreen?style=flat)](https://pypi.org/project/PyQt6/)
+[![MADE WITH FFMPEG](https://img.shields.io/badge/MADE%20WITH-FFMPEG-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
+[![MADE WITH YT-DLP](https://img.shields.io/badge/MADE%20WITH-YT--DLP-orange?style=flat)](https://github.com/yt-dlp/yt-dlp)
+
 </p>
 
 ---
