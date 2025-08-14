@@ -14,11 +14,11 @@
   <img src="./logo.png" alt="APEX GIF MAKER Logo" width="60" style="vertical-align: middle;">
   APEX GIF MAKER (MP4 → GIF)
 </h1>
-
+[![후원하기](https://img.shields.io/badge/후원하기-GitHub%20Sponsors-ff69b4?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/deuxdoom)
 [![RELEASE](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?style=flat&logo=github&logoColor=white&label=RELEASE&labelColor=2f353a&color=0ea5e9)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![DOWNLOADS@LATEST](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS%40LATEST&labelColor=2f353a&color=f59e0b)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![DOWNLOADS](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS&labelColor=2f353a&color=84cc16)](https://github.com/deuxdoom/APEXGIFMAKER/releases)  
-[![PLATFORM](https://img.shields.io/badge/PLATFORM-WINDOWS%2064-0078d4?style=flat&logo=windows&logoColor=white&labelColor=2f353a)](https://github.com/deuxdoom/APEXGIFMAKER)
+[![PLATFORM](https://img.shields.io/badge/PLATFORM-WINDOWS%20X64-0078d4?style=flat&logo=windows&logoColor=white&labelColor=2f353a)](https://github.com/deuxdoom/APEXGIFMAKER)
 [![PYTHON](https://img.shields.io/badge/PYTHON-3.10%2B-3776ab?style=flat&logo=python&logoColor=white&labelColor=2f353a)](https://www.python.org/)
 [![PYSIDE6](https://img.shields.io/badge/PYSIDE6-GUI-10b981?style=flat&logo=qt&logoColor=white&labelColor=2f353a)](https://pypi.org/project/PySide6/)  
 [![MADE WITH](https://img.shields.io/badge/MADE%20WITH-FFMPEG-000000?style=flat&logo=ffmpeg&logoColor=white&labelColor=2f353a)](https://ffmpeg.org/)
@@ -36,7 +36,7 @@
 - **시작·끝 2분할 프리뷰**(1280×720), **2초 간격 타임라인 썸네일**
 - GIF 품질 최적화: **2-pass 팔레트**, **디더링(FS/Bayer/None)**, **FPS/해상도** 조절
 - 스케일 3가지: **꽉 채우기(크롭·기본)** / 레터박스(비율 유지) / 스트레치
-- 자동(균등/중복제거) + **수동 프레임 선택**(체크로 골라서 합성)
+- 자동(균등) + 자동(중복제거)
 - **FFmpeg 자동 준비**(Windows essentials.zip 다운로드·해제) 후 **정리(ffmpeg/ffprobe만 유지)**
 - **포터블 배포**(one-folder), 콘솔창 숨김, **아이콘 내장(Base64 PNG)**
 
