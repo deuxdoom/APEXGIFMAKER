@@ -91,11 +91,9 @@ ApexGIFMaker_x64/
 
 ---
 
-## 📝 Attribution
+## 📝 기여 및 라이센스
 - Icon: **“GIF file”** by **Freepik** on **Flaticon**  
   https://www.flaticon.com/free-icon/gif-file_3979434  
   License: Free for commercial use with attribution.  
   → 배포 ZIP에 `ATTRIBUTION.txt` 포함
-
-## 📄 License
 - MIT License — 상세 내용은 [LICENSE](./LICENSE) 참조.
