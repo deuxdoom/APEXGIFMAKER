@@ -15,14 +15,14 @@
   APEX GIF MAKER (MP4 → GIF)
 </h1>
 
-[![GitHub release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
-[![GitHub downloads latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
-[![GitHub downloads total](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20x64-blue?style=flat&logo=windows)](https://github.com/deuxdoom/APEXGIFMAKER)
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat&logo=python)](https://www.python.org/)
+[![Release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat&label=RELEASE)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![Downloads@Latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat&label=DOWNLOADS%40LATEST)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
+[![Platform](https://img.shields.io/badge/PLATFORM-WINDOWS%20X64-blue?style=flat&logo=windows)](https://github.com/deuxdoom/APEXGIFMAKER)
+[![Python](https://img.shields.io/badge/PYTHON-3.10%2B-blue?style=flat&logo=python)](https://www.python.org/)
 [![PySide6](https://img.shields.io/badge/PySide-6-green?style=flat)](https://pypi.org/project/PySide6/)
-[![FFmpeg](https://img.shields.io/badge/made%20with-FFmpeg-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![FFmpeg](https://img.shields.io/badge/MADE%20WITH-FFmpeg-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
+[![License: MIT](https://img.shields.io/badge/LICENSE-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 ---
 
