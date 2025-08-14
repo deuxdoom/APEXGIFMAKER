@@ -7,6 +7,10 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import QDesktopServices
 
+# ▼▼▼ 수정된 부분 1: 아이콘을 가져오기 위한 import 구문 추가 ▼▼▼
+from icon import get_app_icon
+# ▲▲▲ 수정 완료 ▲▲▲
+
 from constants import (
     APP_VERSION, APP_DIR, CACHE_DIR,
     DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FPS,
@@ -43,6 +47,13 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(f"APEX GIF MAKER v{APP_VERSION}")
+        
+        # ▼▼▼ 수정된 부분 2: 생성된 아이콘을 윈도우에 적용하는 코드 추가 ▼▼▼
+        # icon.py의 get_app_icon() 함수를 호출하여 QIcon 객체를 가져온 후,
+        # setWindowIcon() 메소드를 통해 메인 윈도우의 아이콘으로 설정합니다.
+        self.setWindowIcon(get_app_icon())
+        # ▲▲▲ 수정 완료 ▲▲▲
+
         self.resize(1200, 820)
         self.setMinimumSize(1100, 760)
 
@@ -331,34 +342,23 @@ class MainWindow(QMainWindow):
             self._append_log(f"[ERR] preview: {e}")
 
     def _build_timeline(self):
-        # 썸네일 생성을 위한 임시 디렉터리 준비 및 기존 파일 삭제
         thumbs = CACHE_DIR / "timeline"
         thumbs.mkdir(parents=True, exist_ok=True)
         for fp in thumbs.glob("thumb_*.png"):
             try: fp.unlink()
             except: pass
         self.timeline.clear_thumbs()
-
-        # 비디오가 로드되지 않았으면 썸네일 생성을 건너뜀
         if not (self.video_path and self.ffmpeg_path and self.duration_sec > 0):
             return
 
-        # 가시 셀 수에 맞춰 적응형 fps 계산
         K = self.timeline.visible_cells()
         fps_val = max(0.01, K / self.duration_sec)
-
-        # ▼▼▼ 수정된 부분: 썸네일 생성 해상도를 너비 160px에서 320px로 상향 조정 ▼▼▼
-        # scale 필터의 값을 160에서 320으로 변경하여 더 고해상도의 원본 썸네일을 생성합니다.
-        # UI 표시는 timeline_panel.py에서 자동으로 축소하므로 레이아웃 변경 없이 화질만 개선됩니다.
         vf = f"fps={fps_val:.6f},scale=320:-1:flags=lanczos"
-        # ▲▲▲ 수정 완료 ▲▲▲
-        
         cmd = [self.ffmpeg_path, "-hide_banner", "-loglevel", "error",
                "-i", self.video_path, "-vf", vf, str(thumbs / "thumb_%05d.png")]
         self._append_log("[RUN] thumbs(adaptive): " + " ".join(map(str, cmd)))
         run_quiet(cmd)
 
-        # 생성된 썸네일 파일들을 타임라인 위젯에 추가
         files = sorted(thumbs.glob("thumb_*.png"))
         self.timeline.add_thumb_files(list(files))
 
