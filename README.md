@@ -17,14 +17,14 @@
 
 <p align="center">
 
-[![GITHUB RELEASE](https://img.shields.io/github/release/DEUXDOOM/APEXGIFMAKER?logo=github&style=flat&color=blue)](https://github.com/DEUXDOOM/APEXGIFMAKER/releases/latest)
-[![LATEST DOWNLOADS](https://img.shields.io/github/downloads/DEUXDOOM/APEXGIFMAKER/latest/total?logo=github&style=flat&color=brightgreen)](https://github.com/DEUXDOOM/APEXGIFMAKER/releases/latest)
-[![TOTAL DOWNLOADS](https://img.shields.io/github/downloads/DEUXDOOM/APEXGIFMAKER/total?logo=github&style=flat&color=orange)](https://github.com/DEUXDOOM/APEXGIFMAKER/releases)
-[![LICENSE: MIT](https://img.shields.io/badge/LICENSE-MIT-yellow?style=flat&logo=opensourceinitiative)](https://opensource.org/licenses/MIT)
-[![PYTHON](https://img.shields.io/badge/PYTHON-3.8%2B-blue?style=flat&logo=python)](https://www.python.org/)
-[![PYQT6](https://img.shields.io/badge/PYQT-6-brightgreen?style=flat)](https://pypi.org/project/PyQt6/)
-[![MADE WITH FFMPEG](https://img.shields.io/badge/MADE%20WITH-FFMPEG-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
-[![MADE WITH YT-DLP](https://img.shields.io/badge/MADE%20WITH-YT--DLP-orange?style=flat)](https://github.com/yt-dlp/yt-dlp)
+[![GitHub release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![GitHub downloads latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![GitHub downloads total](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20x64-blue?style=flat&logo=windows)](https://github.com/deuxdoom/APEXGIFMAKER)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat&logo=python)](https://www.python.org/)
+[![PySide6](https://img.shields.io/badge/PySide-6-green?style=flat)](https://pypi.org/project/PySide6/)
+[![FFmpeg](https://img.shields.io/badge/made%20with-FFmpeg-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 </p>
 
