@@ -15,14 +15,14 @@
   APEX GIF MAKER (MP4 → GIF)
 </h1>
 
-[![Release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat&label=RELEASE)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
-[![Downloads@Latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat&label=DOWNLOADS%40LATEST)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat&label=DOWNLOADS)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
-[![Platform](https://img.shields.io/badge/PLATFORM-WINDOWS%20X64-blue?style=flat&logo=windows)](https://github.com/deuxdoom/APEXGIFMAKER)
-[![Python](https://img.shields.io/badge/PYTHON-3.10%2B-blue?style=flat&logo=python)](https://www.python.org/)
-[![PySide6](https://img.shields.io/badge/PySide-6-green?style=flat)](https://pypi.org/project/PySide6/)
-[![FFmpeg](https://img.shields.io/badge/MADE%20WITH-FFmpeg-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
-[![License: MIT](https://img.shields.io/badge/LICENSE-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![RELEASE](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?style=flat&logo=github&logoColor=white&label=RELEASE&labelColor=2f353a&color=0ea5e9)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![DOWNLOADS@LATEST](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS%40LATEST&labelColor=2f353a&color=f59e0b)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
+[![DOWNLOADS](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?style=flat&logo=github&logoColor=white&label=DOWNLOADS&labelColor=2f353a&color=84cc16)](https://github.com/deuxdoom/APEXGIFMAKER/releases)<br>
+[![PLATFORM](https://img.shields.io/badge/PLATFORM-WINDOWS%2010%2F11%20X64?style=flat&logo=windows&logoColor=white&labelColor=2f353a&color=0078d4)](https://github.com/deuxdoom/APEXGIFMAKER)
+[![PYTHON](https://img.shields.io/badge/PYTHON-3.10%2B?style=flat&logo=python&logoColor=white&labelColor=2f353a&color=1e40af)](https://www.python.org/)
+[![PYSIDE](https://img.shields.io/badge/PYSIDE-6?style=flat&logo=qt&logoColor=white&labelColor=2f353a&color=10b981)](https://pypi.org/project/PySide6/)<br>
+[![MADE WITH](https://img.shields.io/badge/MADE%20WITH-FFmpeg?style=flat&logo=ffmpeg&logoColor=white&labelColor=2f353a&color=000000)](https://ffmpeg.org/)
+[![LICENSE](https://img.shields.io/badge/LICENSE-MIT?style=flat&labelColor=2f353a&color=f43f5e)](https://opensource.org/licenses/MIT)
 
 ---
 
