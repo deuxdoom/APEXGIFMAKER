@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="main.png" alt="ApexGIFMaker 메인 UI" width="720">
+  <img src="main.png" alt="ApexGIFMaker 메인 UI" width="820">
 </p>
 
 ## 🎥 데모
