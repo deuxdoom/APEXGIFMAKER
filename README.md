@@ -15,8 +15,6 @@
   APEX GIF MAKER (MP4 → GIF)
 </h1>
 
-<p align="center">
-
 [![GitHub release](https://img.shields.io/github/release/deuxdoom/APEXGIFMAKER?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![GitHub downloads latest](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/latest/total?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases/latest)
 [![GitHub downloads total](https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?logo=github&style=flat)](https://github.com/deuxdoom/APEXGIFMAKER/releases)
@@ -25,8 +23,6 @@
 [![PySide6](https://img.shields.io/badge/PySide-6-green?style=flat)](https://pypi.org/project/PySide6/)
 [![FFmpeg](https://img.shields.io/badge/made%20with-FFmpeg-black?style=flat&logo=ffmpeg)](https://ffmpeg.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
-
-</p>
 
 ---
 
