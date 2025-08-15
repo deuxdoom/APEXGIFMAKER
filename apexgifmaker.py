@@ -4,7 +4,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtCore import QLockFile, QStandardPaths, QThread, Qt, QLocale
 from PySide6.QtNetwork import QLocalServer, QLocalSocket
-from ui import MainWindow
+from src.ui import MainWindow
 
 APP_UNIQUE_NAME = "ApexGifMaker_v2_localserver"
 LOCKFILE_NAME   = "ApexGifMaker_v2.lock"

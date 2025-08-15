@@ -1,39 +1,35 @@
 # ui.py
+import json
 from pathlib import Path
 from PySide6.QtCore import Qt, QTimer, QUrl, QThread, Signal, QLocale
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QSplitter, QTextEdit, QFileDialog, QMessageBox,
-    QHBoxLayout, QLabel, QLineEdit, QPushButton
+    QHBoxLayout, QLabel, QLineEdit, QPushButton, QSizePolicy
 )
 from PySide6.QtGui import QDesktopServices
-
-# ▼▼▼ 수정된 부분 1: 아이콘을 가져오기 위한 import 구문 추가 ▼▼▼
-from icon import get_app_icon
-# ▲▲▲ 수정 완료 ▲▲▲
-
-from constants import (
-    APP_VERSION, APP_DIR, CACHE_DIR,
-    DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FPS,
-    TRIM_MIN_SEC, TRIM_MAX_SEC, RECO_MIN, RECO_MAX, DEFAULT_INIT_SEC,
-    LIGHT_QSS, ACCENT_SUB, GOOD_GREEN, WARN_AMBER
+from .icon import get_app_icon
+from .constants import (
+    APP_VERSION, APP_DIR, CACHE_DIR, TRIM_MIN_SEC, TRIM_MAX_SEC, 
+    RECO_MIN, RECO_MAX, LIGHT_QSS, 
+    GOOD_GREEN, WARN_AMBER, DANGER_RED, SETTINGS_PATH, BG_MAIN
 )
-from i18n import t
-from ffmpeg_tools import (
+from .i18n import t
+from .ffmpeg_tools import (
     find_executable, run_quiet, probe_duration_sec, extract_preview_frame,
     build_gif_commands_auto, tidy_ffmpeg_dir, auto_setup_ffmpeg
 )
-from updater import check_latest
-
-from preview_bar import PreviewBar
-from timeline_panel import TimelinePanel
-from options_panel import OptionsPanel
-from output_panel import OutputPanel
+from .updater import check_latest
+from .preview_bar import PreviewBar
+from .timeline_panel import TimelinePanel
+from .options_panel import OptionsPanel
+from .output_panel import OutputPanel
 
 REPO_OWNER = "deuxdoom"
 REPO_NAME  = "APEXGIFMAKER"
 RELEASES_URL = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases/latest"
 
 class _FfmpegPrepareWorker(QThread):
+    """ffmpeg 자동 설치/준비 과정을 별도 스레드에서 실행하여 UI 멈춤을 방지합니다."""
     log = Signal(str)
     done = Signal(str, str)
     def run(self):
@@ -44,16 +40,12 @@ class _FfmpegPrepareWorker(QThread):
         self.done.emit(find_executable("ffmpeg") or "", find_executable("ffprobe") or "")
 
 class MainWindow(QMainWindow):
+    """애플리케이션의 메인 윈도우. 모든 UI 요소들을 조립하고 이벤트를 처리합니다."""
     def __init__(self):
         super().__init__()
-        self.setWindowTitle(f"APEX GIF MAKER v{APP_VERSION}")
         
-        # ▼▼▼ 수정된 부분 2: 생성된 아이콘을 윈도우에 적용하는 코드 추가 ▼▼▼
-        # icon.py의 get_app_icon() 함수를 호출하여 QIcon 객체를 가져온 후,
-        # setWindowIcon() 메소드를 통해 메인 윈도우의 아이콘으로 설정합니다.
+        self.setWindowTitle(f"APEX GIF MAKER v{APP_VERSION}")
         self.setWindowIcon(get_app_icon())
-        # ▲▲▲ 수정 완료 ▲▲▲
-
         self.resize(1200, 820)
         self.setMinimumSize(1100, 760)
 
@@ -62,6 +54,7 @@ class MainWindow(QMainWindow):
         self.ffprobe_path = find_executable("ffprobe")
         self.video_path = ""
         self.duration_sec = 0.0
+        
         self._drag_active = None
         self._drag_span_sec = None
         self._prev_lo_sec = 0.0
@@ -72,16 +65,16 @@ class MainWindow(QMainWindow):
         self._timeline_timer.setInterval(250)
         self._timeline_timer.timeout.connect(self._build_timeline)
 
-        self._build_ui()
-
-        self._prep_worker = None
-        QTimer.singleShot(0, self._prepare_tools_async)
-
         self.preview_timer = QTimer(self)
         self.preview_timer.setSingleShot(True)
         self.preview_timer.setInterval(200)
         self.preview_timer.timeout.connect(self._update_split_preview)
-
+        
+        self._build_ui()
+        self._load_settings()
+        
+        self._prep_worker = None
+        QTimer.singleShot(0, self._prepare_tools_async)
         QTimer.singleShot(1200, lambda: self._check_updates(True))
 
     def _build_ui(self):
@@ -95,56 +88,63 @@ class MainWindow(QMainWindow):
 
         splitter = QSplitter(Qt.Vertical)
         splitter.setHandleWidth(6)
-
+        
         self.preview = PreviewBar(self.lang)
-        self.preview.playRequested.connect(self._play_range)
-        self.preview.startEdited.connect(self._apply_edits_to_range)
-        self.preview.endEdited.connect(self._apply_edits_to_range)
         splitter.addWidget(self.preview)
 
         content = QWidget()
+        content.setSizePolicy(content.sizePolicy().horizontalPolicy(), QSizePolicy.Expanding)
+        splitter.addWidget(content)
+        
+        splitter.setSizes([400, 600])
+        
         lay = QVBoxLayout(content)
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(8)
-
+        
         file_row = QHBoxLayout()
         self.le_video = QLineEdit()
         self.le_video.setPlaceholderText("동영상 파일 경로 (mp4 등)")
+        
+        self.btn_play = QPushButton("구간 재생" if self.lang == "ko" else "Play Range")
+        self.btn_play.setObjectName("PlayButton")
+        
         self.btn_open = QPushButton("열기…")
         self.btn_open.setObjectName("OpenButton")
-        self.btn_open.clicked.connect(self._browse_video)
+        
         file_row.addWidget(QLabel("입력 비디오:"))
         file_row.addWidget(self.le_video, 1)
+        file_row.addWidget(self.btn_play)
         file_row.addWidget(self.btn_open)
         lay.addLayout(file_row)
 
         self.timeline = TimelinePanel()
-        self.timeline.range.changed.connect(self._on_range_changed)
-        lay.addWidget(self.timeline)
-
         self.options = OptionsPanel(self.lang)
-        self.options.ditherHelp.connect(self._show_dither_help)
-        lay.addWidget(self.options)
-
         self.output = OutputPanel(self.lang)
+        self.log = QTextEdit(); self.log.setReadOnly(True)
+        lay.addWidget(self.timeline)
+        lay.addWidget(self.options)
+        lay.addWidget(self.output)
+        lay.addWidget(self.log, 1)
+
+        root.addWidget(splitter)
+        
+        self.btn_open.clicked.connect(self._browse_video)
+        self.btn_play.clicked.connect(self._play_range)
+        self.preview.startEdited.connect(self._apply_edits_to_range)
+        self.preview.endEdited.connect(self._apply_edits_to_range)
+        self.timeline.range.changed.connect(self._on_range_changed)
+        self.options.ditherHelp.connect(self._show_dither_help)
         self.output.chooseClicked.connect(self._choose_output)
         self.output.generateClicked.connect(self._generate)
-        lay.addWidget(self.output)
-
-        self.log = QTextEdit(); self.log.setReadOnly(True); lay.addWidget(self.log, 1)
-
-        splitter.addWidget(content)
-        splitter.setSizes([self.height() * 58 // 100, self.height() * 42 // 100])
-        root.addWidget(splitter)
-
+        
         self._apply_language()
 
     def _apply_language(self):
         tr = lambda k: t(self.lang, k)
-        self.options.apply_texts(tr)
         self.output.apply_texts(tr)
-        self._update_duration_badge()
-
+        self.setWindowTitle(f"APEX GIF MAKER v{APP_VERSION}")
+        
     def _msgbox(self, title, text, icon="info", info=None,
                 buttons=QMessageBox.Ok, default=QMessageBox.Ok):
         m = QMessageBox(self)
@@ -202,20 +202,17 @@ class MainWindow(QMainWindow):
     def _load_video(self, path: str):
         p = Path(path)
         if not p.is_file():
-            self.warn("오류" if self.lang == "ko" else "Error",
-                      "파일이 존재하지 않습니다." if self.lang == "ko" else "File not found")
+            self.warn("오류", "파일이 존재하지 않습니다.")
             return
         if not self.ffprobe_path:
-            self._prepare_tools_async()
-            self.warn("오류" if self.lang == "ko" else "Error",
-                      "ffmpeg/ffprobe 준비가 필요합니다." if self.lang == "ko" else "ffmpeg/ffprobe required")
+            self.warn("준비", "ffmpeg/ffprobe를 준비하고 있습니다. 잠시 후 다시 시도해 주세요.")
             return
         try:
             self.le_video.setText(str(p))
             self.duration_sec = probe_duration_sec(self.ffprobe_path, str(p))
             self.video_path = str(p)
 
-            span = min(DEFAULT_INIT_SEC, TRIM_MAX_SEC, self.duration_sec)
+            span = min(6.0, TRIM_MAX_SEC, self.duration_sec)
             if span < TRIM_MIN_SEC:
                 span = min(self.duration_sec, TRIM_MIN_SEC)
             hi = span / max(1e-9, self.duration_sec)
@@ -224,16 +221,14 @@ class MainWindow(QMainWindow):
             self._update_time_edits()
             self._build_timeline()
             self._update_split_preview()
-            self._update_duration_badge()
-
+            
             self._append_log(f"[OK] loaded: {p.name}")
         except Exception as e:
-            self.error("오류" if self.lang == "ko" else "Error",
-                       f"동영상 정보를 읽는 중 문제 발생:\n{e}" if self.lang == "ko" else f"Failed to probe video:\n{e}")
+            self.error("오류", f"동영상 정보를 읽는 중 문제 발생:\n{e}")
 
     def _on_range_changed(self, _lo, _hi):
-        if self.duration_sec <= 0:
-            return
+        if self.duration_sec <= 0: return
+
         active = self.timeline.range.active_handle()
         lo = self.timeline.range.lower() * self.duration_sec
         hi = self.timeline.range.upper() * self.duration_sec
@@ -257,9 +252,8 @@ class MainWindow(QMainWindow):
                     new_lo = 0.0
                     hi = min(self.duration_sec, new_lo + span)
                 self.timeline.range.setRange(new_lo/self.duration_sec, hi/self.duration_sec, emit_signal=False)
-
+        
         self._update_time_edits()
-        self._update_duration_badge()
         self.preview_timer.start()
 
         self._prev_lo_sec = self.timeline.range.lower() * self.duration_sec
@@ -269,8 +263,7 @@ class MainWindow(QMainWindow):
             self._drag_span_sec = None
 
     def _apply_edits_to_range(self):
-        if self.duration_sec <= 0:
-            return
+        if self.duration_sec <= 0: return
 
         def _parse(s: str) -> float:
             s = s.strip()
@@ -284,13 +277,11 @@ class MainWindow(QMainWindow):
             s, e = self.preview.get_times()
             lo, hi = _parse(s), _parse(e)
         except Exception:
-            self._update_time_edits()
-            return
+            self._update_time_edits(); return
 
         lo = max(0.0, min(lo, self.duration_sec))
         hi = max(0.0, min(hi, self.duration_sec))
-        if hi <= lo:
-            hi = min(self.duration_sec, lo + TRIM_MIN_SEC)
+        if hi <= lo: hi = min(self.duration_sec, lo + TRIM_MIN_SEC)
 
         span = hi - lo
         if span < TRIM_MIN_SEC: hi = min(self.duration_sec, lo + TRIM_MIN_SEC)
@@ -303,8 +294,8 @@ class MainWindow(QMainWindow):
 
         self.timeline.range.setRange(lo / max(1e-9, self.duration_sec),
                                      hi / max(1e-9, self.duration_sec))
-        self._update_duration_badge()
         self.preview_timer.start()
+        self._update_time_edit_styles(hi - lo)
 
     def _update_time_edits(self):
         def fmt(s: float) -> str:
@@ -314,24 +305,20 @@ class MainWindow(QMainWindow):
         lo = self.timeline.range.lower() * self.duration_sec
         hi = self.timeline.range.upper() * self.duration_sec
         self.preview.set_times(fmt(lo), fmt(hi))
+        self._update_time_edit_styles(hi - lo)
 
-    def _update_duration_badge(self):
-        if self.duration_sec <= 0:
-            self.preview.set_badge("권장 3~6초" if self.lang == "ko" else "Recommend 3–6s")
-            self.preview.set_badge_color("#0f172a", ACCENT_SUB)
-            return
-        lo = self.timeline.range.lower() * self.duration_sec
-        hi = self.timeline.range.upper() * self.duration_sec
-        span = hi - lo
-        text = (f"선택 길이: {span:.3f}초  • 권장 3~6초" if self.lang == "ko"
-                else f"Length: {span:.3f}s  • recommend 3–6s")
-        color = GOOD_GREEN if (RECO_MIN <= span <= RECO_MAX) else WARN_AMBER
-        self.preview.set_badge(text)
-        self.preview.set_badge_color(color, ACCENT_SUB)
+    def _update_time_edit_styles(self, duration: float):
+        if duration > TRIM_MAX_SEC:
+            color = DANGER_RED
+        elif duration > RECO_MAX:
+            color = WARN_AMBER
+        else:
+            color = BG_MAIN
+        self.preview.set_time_edit_style(color)
 
     def _update_split_preview(self):
-        if not (self.video_path and self.ffmpeg_path):
-            return
+        if not (self.video_path and self.ffmpeg_path): return
+            
         lo = self.timeline.range.lower() * self.duration_sec
         hi = self.timeline.range.upper() * self.duration_sec
         try:
@@ -348,11 +335,12 @@ class MainWindow(QMainWindow):
             try: fp.unlink()
             except: pass
         self.timeline.clear_thumbs()
-        if not (self.video_path and self.ffmpeg_path and self.duration_sec > 0):
-            return
+        
+        if not (self.video_path and self.ffmpeg_path and self.duration_sec > 0): return
 
         K = self.timeline.visible_cells()
         fps_val = max(0.01, K / self.duration_sec)
+        
         vf = f"fps={fps_val:.6f},scale=320:-1:flags=lanczos"
         cmd = [self.ffmpeg_path, "-hide_banner", "-loglevel", "error",
                "-i", self.video_path, "-vf", vf, str(thumbs / "thumb_%05d.png")]
@@ -364,32 +352,33 @@ class MainWindow(QMainWindow):
 
     def _play_range(self):
         if not (self.video_path and self.ffmpeg_path):
-            self.warn("오류" if self.lang == "ko" else "Error",
-                      "먼저 비디오를 불러오세요." if self.lang == "ko" else "Load a video first")
+            self.warn("오류", "먼저 비디오를 불러오세요.")
             return
+            
         lo = self.timeline.range.lower() * self.duration_sec
         hi = self.timeline.range.upper() * self.duration_sec
         dur = max(0.0, hi - lo)
+        
         try:
             out = CACHE_DIR / "preview_play.mp4"
             cmd_copy = [self.ffmpeg_path, "-ss", f"{lo:.3f}", "-t", f"{dur:.3f}", "-i", self.video_path,
                         "-c", "copy", "-movflags", "faststart", "-y", "-hide_banner", "-loglevel", "error", str(out)]
             p = run_quiet(cmd_copy)
+            
             if p.returncode != 0 or not out.exists() or out.stat().st_size == 0:
                 cmd_enc = [self.ffmpeg_path, "-ss", f"{lo:.3f}", "-t", f"{dur:.3f}", "-i", self.video_path,
                            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23", "-c:a", "aac", "-b:a", "128k",
                            "-movflags", "faststart", "-y", "-hide_banner", "-loglevel", "error", str(out)]
                 p = run_quiet(cmd_enc)
                 if p.returncode != 0: raise RuntimeError(p.stderr)
+                
             QDesktopServices.openUrl(QUrl.fromLocalFile(str(out)))
         except Exception as e:
-            self.error("실패" if self.lang == "ko" else "Failed", str(e))
+            self.error("실패", str(e))
 
     def _choose_output(self):
         name = str(APP_DIR / "output.gif")
-        path, _ = QFileDialog.getSaveFileName(self,
-                                              "출력 GIF 저장" if self.lang == "ko" else "Save GIF",
-                                              name, "GIF (*.gif)")
+        path, _ = QFileDialog.getSaveFileName(self, "출력 GIF 저장", name, "GIF (*.gif)")
         if path:
             if not path.lower().endswith(".gif"):
                 path += ".gif"
@@ -406,23 +395,21 @@ class MainWindow(QMainWindow):
 
     def _generate(self):
         if not self._ensure_tools():
-            self.warn("오류" if self.lang == "ko" else "Error",
-                      "ffmpeg/ffprobe 준비가 필요합니다." if self.lang == "ko" else "ffmpeg/ffprobe required")
+            self.warn("오류", "ffmpeg/ffprobe가 준비되지 않았습니다. 잠시 후 다시 시도해 주세요.")
             return
         if not self.video_path:
-            self.warn("오류" if self.lang == "ko" else "Error",
-                      "먼저 비디오를 불러오세요." if self.lang == "ko" else "Load a video first")
+            self.warn("오류", "먼저 비디오를 불러오세요.")
             return
 
         lo = self.timeline.range.lower() * self.duration_sec
         hi = self.timeline.range.upper() * self.duration_sec
         duration = max(0.0, hi - lo)
         if not (TRIM_MIN_SEC <= duration <= TRIM_MAX_SEC):
-            self.warn("오류" if self.lang == "ko" else "Error",
-                      "구간은 1~15초입니다." if self.lang == "ko" else "Range must be 1–15s")
+            self.warn("경고", f"구간 길이는 {TRIM_MIN_SEC}~{TRIM_MAX_SEC}초 사이여야 합니다.")
             return
 
         mode_idx, fps, w, h, scale_mode, dither_key = self.options.values()
+        
         out_path = self.output.get_path()
         if not out_path:
             base = Path(self.video_path).with_suffix("")
@@ -435,55 +422,69 @@ class MainWindow(QMainWindow):
         )
 
         self.output.btn_generate.setEnabled(False)
-        self._append_log("[RUN] gif start")
+        self._append_log("[RUN] GIF 생성을 시작합니다...")
+        
         for i, cmd in enumerate(cmds, start=1):
-            self._append_log(f"[RUN] pass{i}: {' '.join(map(str, cmd))}")
+            self._append_log(f"[RUN] Pass {i}: {' '.join(map(str, cmd))}")
             p = run_quiet(cmd)
             if p.stdout.strip(): self._append_log(p.stdout.strip())
             if p.stderr.strip(): self._append_log(p.stderr.strip())
             if p.returncode != 0:
-                self.error("오류" if self.lang == "ko" else "Error", f"ffmpeg 실패 (pass {i})")
+                self.error("오류", f"ffmpeg 실행에 실패했습니다 (Pass {i}). 로그를 확인해주세요.")
                 self.output.btn_generate.setEnabled(True)
                 return
 
         if Path(out_path).is_file():
-            self._append_log(f"[OK] saved: {out_path}")
-            self.info("완료" if self.lang == "ko" else "Done",
-                      ("GIF 생성 완료:\n{}" if self.lang == "ko" else "Saved:\n{}").format(out_path))
+            self._append_log(f"[OK] GIF 저장 완료: {out_path}")
+            self.info("완료", f"GIF 생성이 완료되었습니다:\n{out_path}")
         else:
-            self._append_log("[ERR] no output")
-            self.warn("경고" if self.lang == "ko" else "Warn",
-                      "출력 파일을 찾을 수 없습니다." if self.lang == "ko" else "Output not found")
+            self._append_log("[ERR] 출력 파일이 생성되지 않았습니다.")
+            self.warn("경고", "알 수 없는 오류로 출력 파일이 생성되지 않았습니다.")
 
         tidy_ffmpeg_dir(self._append_log)
         self.output.btn_generate.setEnabled(True)
 
     def _show_dither_help(self):
-        if self.lang == "ko":
-            self.info("디더링이란?",
-                      "GIF는 256색 팔레트를 사용합니다. 디더링은 색 밴딩을 줄이기 위해 작은 패턴/노이즈를 섞는 기법입니다.\n\n"
-                      "• 플로이드-슈타인버그: 부드럽고 자연스러움\n• 바이어: 격자 패턴, 선명\n• 없음: 또렷하지만 밴딩 가능")
-        else:
-            self.info("What is dithering?",
-                      "GIF uses a 256-color palette. Dithering mixes small patterns to reduce banding.\n\n"
-                      "• floyd_steinberg (smooth)\n• bayer (ordered pattern)\n• none (no dithering; may band)")
+        self.info(t(self.lang, "dither_help"), t(self.lang, "dither_help_text"))
 
     def _check_updates(self, startup=False):
         tag, newer, err = check_latest(REPO_OWNER, REPO_NAME, APP_VERSION)
         if err:
-            self._append_log(f"[UPDATE] check failed: {err}")
+            self._append_log(f"[UPDATE] 업데이트 확인 실패: {err}")
             return
         if newer:
-            self._append_log(f"[UPDATE] new version: {tag}")
-            if self.ask_yes_no("업데이트", "새로운 버전이 나왔습니다.\n다운하러 이동하시겠습니까?"):
+            self._append_log(f"[UPDATE] 새로운 버전 발견: {tag}")
+            if self.ask_yes_no(t(self.lang, "update"), t(self.lang, "update_prompt")):
                 QDesktopServices.openUrl(QUrl(RELEASES_URL))
         elif not startup:
-            self._append_log("[UPDATE] 최신 상태")
+            self._append_log("[UPDATE] 현재 최신 버전입니다.")
+    
+    def _load_settings(self):
+        try:
+            if SETTINGS_PATH.exists():
+                self._append_log("[INFO] 설정 파일(settings.json)을 불러옵니다.")
+                with open(SETTINGS_PATH, "r", encoding="utf-8") as f:
+                    settings = json.load(f)
+                self.output.set_path(settings.get("output_path", ""))
+                self.options.set_values(settings.get("options", {}))
+        except Exception as e:
+            self._append_log(f"[WARN] 설정 파일을 불러오는 데 실패했습니다: {e}")
 
+    def _save_settings(self):
+        try:
+            self._append_log("[INFO] 현재 설정을 저장합니다.")
+            settings = {
+                "output_path": self.output.get_path(),
+                "options": self.options.get_options_dict(),
+            }
+            with open(SETTINGS_PATH, "w", encoding="utf-8") as f:
+                json.dump(settings, f, indent=4)
+        except Exception as e:
+            self._append_log(f"[WARN] 설정 파일을 저장하는 데 실패했습니다: {e}")
 
     def closeEvent(self, e):
-        if self.ask_yes_no("종료" if self.lang == "ko" else "Quit",
-                           "프로그램을 종료하시겠습니까?" if self.lang == "ko" else "Do you want to exit?"):
+        if self.ask_yes_no("종료", "프로그램을 종료하시겠습니까?"):
+            self._save_settings()
             e.accept()
         else:
             e.ignore()

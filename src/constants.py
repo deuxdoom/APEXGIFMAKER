@@ -1,58 +1,64 @@
 # constants.py
-# Apex GIF Maker 공용 상수 + 라이트 테마(QSS)
-
 from pathlib import Path
 import sys
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 앱 메타
+# --- 앱 메타 정보 ---
 APP_TITLE   = "Apex GIF Maker (MP4 → GIF)"
-APP_VERSION = "2.5.0"
+APP_VERSION = "2.5.1"
 
 def app_root() -> Path:
+    """
+    애플리케이션의 루트 디렉터리 경로를 반환합니다.
+    - 배포된 .exe 환경과 개발(.py) 환경을 모두 고려합니다.
+    """
+    # PyInstaller 등으로 빌드된 .exe로 실행될 경우, 실행 파일(.exe)이 위치한 폴더가 루트입니다.
     if getattr(sys, "frozen", False):
         return Path(sys.executable).resolve().parent
-    return Path(__file__).resolve().parent
+    
+    # .py 소스 코드로 직접 실행될 경우, 이 파일은 'src' 폴더 안에 있습니다.
+    # 따라서 실제 프로젝트 루트는 이 파일이 속한 폴더(parent)의 부모 폴더(parent)가 됩니다.
+    return Path(__file__).resolve().parent.parent
 
+# --- 핵심 경로 상수 ---
 APP_DIR   = app_root()
 CACHE_DIR = APP_DIR / "cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-# ★ ffmpeg 보관 디렉터리(필수)
+# ffmpeg 실행 파일이 위치할 디렉터리
 FFMPEG_DIR = APP_DIR / "ffmpeg-bin"
 FFMPEG_DIR.mkdir(parents=True, exist_ok=True)
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 기본 옵션
+# 프로그램의 설정을 저장하고 불러올 JSON 파일의 경로입니다.
+SETTINGS_PATH = APP_DIR / "settings.json"
+
+# --- 기본 옵션 값 ---
 DEFAULT_WIDTH  = 160
 DEFAULT_HEIGHT = 80
 DEFAULT_FPS    = 12
 
-# 선택 구간(초)
+# GIF로 만들 수 있는 구간의 최소/최대 길이 (초)
 TRIM_MIN_SEC = 1.0
-TRIM_MAX_SEC = 15.0
+TRIM_MAX_SEC = 30.0
 
-# 권장 구간(초)
+# 사용자에게 권장하는 구간 길이 (초)
 RECO_MIN = 3.0
-RECO_MAX = 6.0
+RECO_MAX = 15.0
 
-# 초기 선택 길이(초)
-DEFAULT_INIT_SEC = 3.0
+# 동영상 로드 시 처음에 선택될 기본 길이 (초)
+DEFAULT_INIT_SEC = 6.0
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 색상 팔레트
-ACCENT_MAIN = "#2563eb"  # 파랑
-ACCENT_SUB  = "#93c5fd"  # 연파랑
+# --- 색상 팔레트 ---
+ACCENT_MAIN = "#2563eb"
+ACCENT_SUB  = "#93c5fd"
 GOOD_GREEN  = "#10b981"
 WARN_AMBER  = "#f59e0b"
 DANGER_RED  = "#ef4444"
-FG_PRIMARY  = "#0f172a"  # 다크 네이비(글자)
+FG_PRIMARY  = "#0f172a"
 BG_MAIN     = "#ffffff"
-BG_SOFT     = "#f1f5f9"  # 밝은 회색
+BG_SOFT     = "#f1f5f9"
 BORDER_SOFT = "#e2e8f0"
 
-# ──────────────────────────────────────────────────────────────────────────────
-# 라이트 테마(QSS) — ComboBox 팝업/PreviewView/버튼 스타일 포함
+# --- 라이트 테마 (Qt Style Sheet) ---
 LIGHT_QSS = f"""
 /* 전역 */
 QWidget {{
