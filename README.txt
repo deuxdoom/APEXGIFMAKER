@@ -1,5 +1,5 @@
 ==============
- APEX GIF MAKER
+APEX GIF MAKER
 ==============
 
 ○ 소개 (Introduction)
