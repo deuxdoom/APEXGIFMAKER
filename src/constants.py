@@ -4,7 +4,7 @@ import sys
 
 # --- 앱 메타 정보 ---
 APP_TITLE   = "Apex GIF Maker (MP4 → GIF)"
-APP_VERSION = "2.5.1"
+APP_VERSION = "2.5.2"
 
 def app_root() -> Path:
     """

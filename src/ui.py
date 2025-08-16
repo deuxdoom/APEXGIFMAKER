@@ -23,13 +23,13 @@ from .preview_bar import PreviewBar
 from .timeline_panel import TimelinePanel
 from .options_panel import OptionsPanel
 from .output_panel import OutputPanel
+from .about_dialog import AboutDialog # 새로 만든 AboutDialog 클래스를 가져옵니다.
 
 REPO_OWNER = "deuxdoom"
 REPO_NAME  = "APEXGIFMAKER"
 RELEASES_URL = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases/latest"
 
 class _FfmpegPrepareWorker(QThread):
-    """ffmpeg 자동 설치/준비 과정을 별도 스레드에서 실행하여 UI 멈춤을 방지합니다."""
     log = Signal(str)
     done = Signal(str, str)
     def run(self):
@@ -40,7 +40,6 @@ class _FfmpegPrepareWorker(QThread):
         self.done.emit(find_executable("ffmpeg") or "", find_executable("ffprobe") or "")
 
 class MainWindow(QMainWindow):
-    """애플리케이션의 메인 윈도우. 모든 UI 요소들을 조립하고 이벤트를 처리합니다."""
     def __init__(self):
         super().__init__()
         
@@ -121,14 +120,37 @@ class MainWindow(QMainWindow):
         self.timeline = TimelinePanel()
         self.options = OptionsPanel(self.lang)
         self.output = OutputPanel(self.lang)
+        
+        # ▼▼▼ 수정된 부분: 로그창과 버튼을 담을 컨테이너 생성 ▼▼▼
+        log_container = QWidget()
+        log_layout = QVBoxLayout(log_container)
+        log_layout.setContentsMargins(0, 0, 0, 0)
+        log_layout.setSpacing(5)
+
         self.log = QTextEdit(); self.log.setReadOnly(True)
+        log_layout.addWidget(self.log, 1) # 로그창이 수직 공간을 모두 차지
+
+        # 버튼들을 담을 수평 레이아웃
+        button_row = QHBoxLayout()
+        button_row.addStretch(1) # 버튼들을 오른쪽으로 밀어냄
+
+        self.btn_log_clear = QPushButton("로그 지우기")
+        self.btn_about = QPushButton("정보")
+        
+        button_row.addWidget(self.btn_log_clear)
+        button_row.addWidget(self.btn_about)
+        
+        log_layout.addLayout(button_row)
+        # ▲▲▲ 수정 완료 ▲▲▲
+
         lay.addWidget(self.timeline)
         lay.addWidget(self.options)
         lay.addWidget(self.output)
-        lay.addWidget(self.log, 1)
+        lay.addWidget(log_container, 1) # 기존 self.log 대신 컨테이너 위젯을 추가
 
         root.addWidget(splitter)
         
+        # --- 시그널 연결 (새 버튼들 추가) ---
         self.btn_open.clicked.connect(self._browse_video)
         self.btn_play.clicked.connect(self._play_range)
         self.preview.startEdited.connect(self._apply_edits_to_range)
@@ -137,8 +159,17 @@ class MainWindow(QMainWindow):
         self.options.ditherHelp.connect(self._show_dither_help)
         self.output.chooseClicked.connect(self._choose_output)
         self.output.generateClicked.connect(self._generate)
+        self.btn_log_clear.clicked.connect(self.log.clear) # 로그 지우기 버튼 연결
+        self.btn_about.clicked.connect(self._show_about_dialog) # 정보 버튼 연결
         
         self._apply_language()
+
+    # ▼▼▼ 추가된 부분: About 다이얼로그를 표시하는 메소드 ▼▼▼
+    def _show_about_dialog(self):
+        """'정보' 버튼 클릭 시 About 다이얼로그를 생성하고 표시합니다."""
+        dialog = AboutDialog(self)
+        dialog.exec()
+    # ▲▲▲ 추가 완료 ▲▲▲
 
     def _apply_language(self):
         tr = lambda k: t(self.lang, k)
