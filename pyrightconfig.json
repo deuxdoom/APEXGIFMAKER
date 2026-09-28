@@ -1,0 +1,9 @@
+{
+  "include": ["apexgifmaker.py", "versioninfo.py", "src", "tools"],
+  "exclude": ["**/__pycache__", ".venv", "build", "dist", "ffmpeg-bin"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.10",
+  "pythonPlatform": "Windows",
+  "typeCheckingMode": "standard"
+}
