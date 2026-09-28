@@ -1,3 +1,33 @@
-Icon: "GIF file" by Freepik on Flaticon
-Link: https://www.flaticon.com/free-icon/gif-file_3979434
-License: Free for commercial use with attribution.
+APEX GIF MAKER가 함께 쓰는 도구와 자료
+=====================================
+
+이 프로그램은 아래 도구와 자료를 사용합니다. 각 자료의 저작권은 원래 만든 사람에게 있습니다.
+
+
+■ FFmpeg (동영상 변환 도구)
+  - 누리집: https://ffmpeg.org/
+  - 라이선스: LGPL 2.1 이상 / GPL 2 이상 (빌드 방식에 따라 다름)
+  - 프로그램에 포함되어 있지 않으며, 처음 실행할 때 아래 공식 빌드를 내려받습니다.
+    https://www.gyan.dev/ffmpeg/builds/ (예비: https://github.com/BtbN/FFmpeg-Builds)
+
+■ Qt for Python (PySide6) — 화면 구성
+  - 누리집: https://www.qt.io/qt-for-python
+  - 라이선스: LGPL 3
+
+■ Fluent UI System Icons — 화면 아이콘
+  - Copyright (c) 2020 Microsoft Corporation
+  - 누리집: https://github.com/microsoft/fluentui-system-icons
+  - 라이선스: MIT (assets/icons/LICENSE.txt)
+
+■ Pretendard, Pretendard JP — 화면 글꼴
+  - Copyright (c) 2021, Kil Hyung-jin
+  - 누리집: https://github.com/orioncactus/pretendard
+  - 라이선스: SIL Open Font License 1.1 (assets/fonts/Pretendard-OFL.txt)
+
+■ JetBrains Mono — 로그 글꼴
+  - Copyright 2020 The JetBrains Mono Project Authors
+  - 누리집: https://github.com/JetBrains/JetBrainsMono
+  - 라이선스: SIL Open Font License 1.1 (assets/fonts/JetBrainsMono-OFL.txt)
+
+
+Flydigi와 APEX는 각 소유자의 상표이며, 이 프로그램은 Flydigi와 관계가 없는 개인 제작 도구입니다.
