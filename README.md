@@ -26,18 +26,16 @@
   <a href="https://deuxdoom.github.io/APEXGIFMAKER/">
     <img src="https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-0b1527?style=for-the-badge" alt="소개 페이지 바로가기">
   </a>
-  &nbsp;
-  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v2.5.2/ApexGIFMaker_252.zip">
+  
+  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.0.0/ApexGIFMaker_v300.zip">
     <img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드">
   </a>
 </p>
 
 <p align="center">
   <b>다운로드 버튼을 누르면 프로그램 ZIP 파일이 바로 내려받아집니다.</b><br>
-  현재 공개 버전: <b>v2.5.2</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
+  현재 공개 버전: <b>v3.0.0</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
 </p>
-
-> **3.0 준비 중** — 위 화면과 아래 상세 기능 안내는 3.0 기준입니다. 현재 다운로드되는 2.5.2와 화면·일부 기능이 다릅니다.
 
 [빠른 시작](#빠른-시작) · [주요 기능](#주요-기능) · [GIF 만들기](#gif-만들기) · [자주 묻는 질문](#자주-묻는-질문) · [변경 기록](CHANGELOG.md)
 
@@ -183,19 +181,6 @@ Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 �
 
 </details>
 
-<details>
-<summary><b>다운로드 파일의 확인값(SHA-256)을 직접 확인하고 싶어요.</b></summary>
-
-3.0부터 릴리스 본문에 ZIP 파일의 SHA-256을 함께 제공합니다.
-파일이 있는 폴더에서 PowerShell을 열고 아래 명령을 실행한 뒤, **같은 파일 이름**의 공개된 확인값과 비교하세요.
-
-```powershell
-Get-FileHash .\ApexGIFMaker*.zip -Algorithm SHA256
-```
-
-자동 업데이트에서는 앱이 이 검사를 수행합니다.
-
-</details>
 
 ## 문의와 프로젝트 안내
 
