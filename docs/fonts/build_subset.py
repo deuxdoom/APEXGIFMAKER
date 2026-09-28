@@ -1,7 +1,7 @@
 """Rebuild the local webfont after editing page text.
 
 Requires fonttools and brotli. Run from any directory:
-    python docs/fonts/build_subset.py --source F:/UTILITY/FONT/PretendardJP/PretendardVariable.ttf
+    python docs/fonts/build_subset.py --source assets/fonts/PretendardVariable.ttf
 """
 from __future__ import annotations
 
