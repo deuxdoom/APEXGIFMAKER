@@ -165,7 +165,7 @@ Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 �
 **3.0부터** 새 버전 안내에서 `지금 업데이트`를 누르면 앱에서 업데이트할 수 있습니다.
 다운로드 파일의 SHA-256 확인값을 검사한 뒤 적용하며, 설정과 FFmpeg는 유지합니다.
 
-**2.x에서 3.0으로 옮길 때는** 3.0 공개 후 ZIP을 직접 받아 새 폴더에 풀어 주세요.
+**2.x에서 3.0으로 옮길 때는** 3.0.0 ZIP을 직접 받아 새 폴더에 풀어 주세요.
 이전 폴더의 `settings.json`을 새 폴더로 복사하면 저장 폴더와 옵션을 이어서 사용할 수 있습니다.
 
 **FFmpeg는 3.0부터** 앱을 켤 때 새 버전이 있는지 확인해서 자동으로 최신으로 맞춥니다.
@@ -192,4 +192,4 @@ Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 �
 개인이 만든 비공식 도구이며 Flydigi와 제휴하거나 공식 지원을 받는 제품이 아닙니다.
 Flydigi와 APEX는 각 권리자의 상표입니다.
 
-[windows-download]: https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v2.5.2/ApexGIFMaker_252.zip
+[windows-download]: https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.0.0/ApexGIFMaker_v300.zip
