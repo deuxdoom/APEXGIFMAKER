@@ -22,14 +22,10 @@
 </p>
 
 <!-- 새 버전 공개 시 다운로드 버튼, windows-download 참조 URL, 공개 버전 안내를 함께 갱신합니다. -->
+<!-- <a> 안에 줄바꿈이나 공백을 넣으면 GitHub가 버튼 사이에 밑줄 친 빈칸을 그리므로, 링크는 한 줄로 붙여 씁니다. -->
 <p align="center">
-  <a href="https://deuxdoom.github.io/APEXGIFMAKER/">
-    <img src="https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-0b1527?style=for-the-badge" alt="소개 페이지 바로가기">
-  </a>
-  
-  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.0.0/ApexGIFMaker_v300.zip">
-    <img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드">
-  </a>
+  <a href="https://deuxdoom.github.io/APEXGIFMAKER/"><img src="https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-0b1527?style=for-the-badge" alt="소개 페이지 바로가기"></a>
+  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.0.0/ApexGIFMaker_v300.zip"><img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드"></a>
 </p>
 
 <p align="center">
@@ -37,7 +33,13 @@
   현재 공개 버전: <b>v3.0.0</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
 </p>
 
-[빠른 시작](#빠른-시작) · [주요 기능](#주요-기능) · [GIF 만들기](#gif-만들기) · [자주 묻는 질문](#자주-묻는-질문) · [변경 기록](CHANGELOG.md)
+<p align="center">
+  <a href="#빠른-시작">빠른 시작</a> &nbsp;·&nbsp;
+  <a href="#주요-기능">주요 기능</a> &nbsp;·&nbsp;
+  <a href="#gif-만들기">GIF 만들기</a> &nbsp;·&nbsp;
+  <a href="#자주-묻는-질문">자주 묻는 질문</a> &nbsp;·&nbsp;
+  <a href="CHANGELOG.md">변경 기록</a>
+</p>
 
 ## 빠른 시작
 
