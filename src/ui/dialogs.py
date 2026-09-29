@@ -166,4 +166,7 @@ class AboutDialog(QDialog):
         close.clicked.connect(self.accept)
         bottom.addWidget(close)
         root.addLayout(bottom)
+        # 문구가 긴 언어(스페인어 등)에서 링크 버튼이 잘리지 않도록, 버튼에 필요한 만큼 창을 넓힌다.
+        margins = root.contentsMargins()
+        self.setFixedWidth(max(500, links.minimumSize().width() + margins.left() + margins.right()))
         apply_dialog_frame(self, title=tr("about.title"))
