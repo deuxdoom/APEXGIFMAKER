@@ -44,6 +44,8 @@ GIF 생성은 샘플 프레임으로 256색 팔레트를 만들고 선택한 디
    읽어 바꿉니다. API 실패·시간 초과·자산 없음에는 HTML에 적힌 기본값(`/releases/latest`, `v3.0.0 정식 출시`)이 남으므로,
    `index.html`의 배지 문구와 링크(`#release-badge`)도 새 태그로 고칩니다.
 2. `tools/capture.py --docs`로 최신 앱 화면을 캡처하여 `images/main.png`와 `images/app-preview.webp`를 갱신합니다.
+   GitHub 소셜 미리보기 그림 `images/social-preview.png`도 함께 새로 만들어지며, `main.png`만 직접 바꿨다면
+   `tools/social_preview.py`로 따로 만듭니다.
    크기가 바뀌면 `index.html`의 이미지 `width`·`height`, `og:image:width`·`og:image:height`,
    `.hotspots`의 번호 위치(`--x`, `--y`, 그림 크기 대비 %)도 함께 맞춥니다.
 3. 화면이나 기본값이 바뀌면 체험판 HTML(`#sim`)과 `site.js`의 상수(`TRIM_*`, `SIZE_*`, `FPS_*` 등)를 앱과 맞춥니다.

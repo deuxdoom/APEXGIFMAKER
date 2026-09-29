@@ -249,6 +249,9 @@ def check_docs(r: Result) -> None:
             r.fail(f"{rel}이(가) 없습니다 (python tools/capture.py --docs)")
         elif path.stat().st_mtime + 1 < newest:
             r.warn(f"{rel}이(가) 화면 코드보다 오래되었습니다. UI가 바뀌었다면 python tools/capture.py --docs로 새로 만드세요")
+    main_png, social_png = ROOT / "docs" / "images" / "main.png", ROOT / "docs" / "images" / "social-preview.png"
+    if main_png.is_file() and social_png.is_file() and social_png.stat().st_mtime + 1 < main_png.stat().st_mtime:
+        r.warn("docs/images/social-preview.png이(가) main.png보다 오래되었습니다. python tools/social_preview.py로 새로 만드세요")
 
 
 _ICON_CALL = re.compile(r"""(?:set_icon\([^,()]+,\s*|make_icon_button\(\s*|make_tool_button\(\s*|icons\.icon\(\s*|"""
