@@ -243,7 +243,7 @@ def check_docs(r: Result) -> None:
             r.fail(f"RELEASE.md 첫 줄에 현재 버전 {APP_VERSION}이 없습니다")
     ui_sources = [*(ROOT / "src" / "ui").rglob("*.py"), *(ROOT / "src" / "i18n").glob("*.py"), ROOT / "versioninfo.py"]
     newest = max(path.stat().st_mtime for path in ui_sources)
-    for rel in ("docs/images/main.png", "docs/images/app-preview.webp"):
+    for rel in ("docs/images/main.png", "docs/images/app-preview.webp", "docs/images/social-preview.png"):
         path = ROOT / rel
         if not path.is_file():
             r.fail(f"{rel}이(가) 없습니다 (python tools/capture.py --docs)")
