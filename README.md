@@ -25,12 +25,12 @@
 <!-- <a> 안에 줄바꿈이나 공백을 넣으면 GitHub가 버튼 사이에 밑줄 친 빈칸을 그리므로, 링크는 한 줄로 붙여 씁니다. -->
 <p align="center">
   <a href="https://deuxdoom.github.io/APEXGIFMAKER/"><img src="https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-0b1527?style=for-the-badge" alt="소개 페이지 바로가기"></a>
-  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.0.0/ApexGIFMaker_v300.zip"><img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드"></a>
+  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.1.0/ApexGIFMaker_v310.zip"><img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드"></a>
 </p>
 
 <p align="center">
   <b>다운로드 버튼을 누르면 프로그램 ZIP 파일이 바로 내려받아집니다.</b><br>
-  현재 공개 버전: <b>v3.0.0</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
+  현재 공개 버전: <b>v3.1.0</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
 </p>
 
 <p align="center">
@@ -127,7 +127,7 @@ GitHub의 `Code → Download ZIP`이나 `Source code (zip)`은 개발용 소스 
 위의 **Windows ZIP 바로 다운로드** 버튼으로 프로그램을 다시 받은 뒤 전체 압축을 풀어 주세요.
 
 직접 고르려면 [전체 버전 목록](https://github.com/deuxdoom/APEXGIFMAKER/releases)의 **Assets**에서
-`ApexGIFMaker_252.zip`, `ApexGIFMaker_v300.zip`처럼 **ApexGIFMaker로 시작하는 ZIP**을 찾으면 됩니다.
+`ApexGIFMaker_252.zip`, `ApexGIFMaker_v310.zip`처럼 **ApexGIFMaker로 시작하는 ZIP**을 찾으면 됩니다.
 
 </details>
 
@@ -167,7 +167,7 @@ Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 �
 **3.0부터** 새 버전 안내에서 `지금 업데이트`를 누르면 앱에서 업데이트할 수 있습니다.
 다운로드 파일의 SHA-256 확인값을 검사한 뒤 적용하며, 설정과 FFmpeg는 유지합니다.
 
-**2.x에서 3.0으로 옮길 때는** 3.0.0 ZIP을 직접 받아 새 폴더에 풀어 주세요.
+**2.x에서 3.x로 옮길 때는** 최신 ZIP을 직접 받아 새 폴더에 풀어 주세요.
 이전 폴더의 `settings.json`을 새 폴더로 복사하면 저장 폴더와 옵션을 이어서 사용할 수 있습니다.
 
 **FFmpeg는 3.0부터** 앱을 켤 때 새 버전이 있는지 확인해서 자동으로 최신으로 맞춥니다.
@@ -194,4 +194,4 @@ Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 �
 개인이 만든 비공식 도구이며 Flydigi와 제휴하거나 공식 지원을 받는 제품이 아닙니다.
 Flydigi와 APEX는 각 권리자의 상표입니다.
 
-[windows-download]: https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.0.0/ApexGIFMaker_v300.zip
+[windows-download]: https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.1.0/ApexGIFMaker_v310.zip

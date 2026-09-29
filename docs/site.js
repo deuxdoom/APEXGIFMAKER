@@ -31,14 +31,10 @@ const INVALID_FILENAME_CHARS = '<>:"/\\|?*';
 const clamp = (value, lo, hi) => (value < lo ? lo : value > hi ? hi : value);
 const round3 = (value) => Math.round(value * 1000) / 1000;
 
-function roundHalfEven(value) {
-  // Python round()와 같게 .5는 짝수 쪽으로 반올림합니다.
-  const x = Math.round(value * 1e6) / 1e6;
-  const floor = Math.floor(x);
-  return Math.abs(x - floor - 0.5) < 1e-9 ? (floor % 2 === 0 ? floor : floor + 1) : Math.round(x);
-}
-
-const estimateFrames = (length, fps) => Math.max(1, roundHalfEven(Math.max(0, length) * fps));
+// gif.py와 같이 밀리초 길이로 정수 계산하고 .5는 올립니다. (ffmpeg도 경계값에서 올림으로 셈)
+const estimateFrames = (length, fps) => Math.max(1, Math.floor((Math.round(Math.max(0, length) * 1000) * fps + 500) / 1000));
+// gif.py ONE_PASS_MAX_PIXELS: 예상 프레임 × 가로 × 세로가 이 값 이하이면 영상을 한 번만 읽는 1-pass로 만듭니다.
+const ONE_PASS_MAX_PIXELS = 50000000;
 
 function formatTime(seconds) {
   const total = Math.max(0, Math.round(seconds * 1000));
@@ -1034,7 +1030,7 @@ function setupSimulator() {
   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(timelineCanvas);
   else addEventListener('resize', resize);
 
-  // --- GIF 생성 (encoder.py 흐름: 색상 분석 → 변환 → 결과 창) ---
+  // --- GIF 생성 (encoder.py 흐름: [2-pass면 색상 분석 →] 변환 → 결과 창) ---
   const progressRow = $('#sim-progress'), progressBar = $('#sim-progress-bar'), stageLabel = $('#sim-stage');
   const playButton = $('#sim-play');
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -1094,8 +1090,10 @@ function setupSimulator() {
       const work = document.createElement('canvas');
       work.width = pw; work.height = ph;
       const wctx = work.getContext('2d', { willReadFrequently: true });
-      // Pass 1: 구간 전체를 훑어 팔레트를 만듭니다.
-      setStage('색상 분석 중…', null);
+      // 구간 전체를 훑어 팔레트를 만듭니다. 앱은 보통(1-pass) 이 분석과 변환을 한 번에 하므로 처음부터 변환
+      // 진행률을 보여 주고, 크거나 긴 GIF(2-pass)만 '색상 분석 중'을 먼저 보여 줍니다.
+      const onePass = estimateFrames(sel.end - sel.start, options.fps) * options.width * options.height <= ONE_PASS_MAX_PIXELS;
+      setStage(onePass ? 'GIF 변환 중… 0%' : '색상 분석 중…', onePass ? 0 : null);
       const histogram = new Uint32Array(32768);
       const samples = Math.min(times.length, 40);
       for (let i = 0; i < samples; i++) {
@@ -1258,7 +1256,7 @@ function setupSimulator() {
   const notes = {
     update: ['업데이트', '앱에서는 GitHub의 최신 릴리스를 확인해, 새 버전이 있으면 바뀐 점과 함께 업데이트 창을 띄웁니다. 켤 때도 자동으로 확인합니다.\n\n웹 체험에서는 확인하지 않습니다.'],
     tools: ['도구 업데이트', '앱에서는 ffmpeg 새 버전을 확인해 SHA-256을 검사한 뒤 bin 폴더에 받습니다. 사용 중이라 바로 바꿀 수 없으면 받아 두었다가 다음에 켤 때 적용합니다.'],
-    about: ['APEX GIF MAKER 정보', 'Flydigi APEX 시리즈 컨트롤러 스크린용 GIF 메이커\n버전 3.0.0 · 웹 체험판\n\n동영상 처리: FFmpeg (LGPL/GPL)\nUI: Qt for Python / PySide6 (LGPL)\nUI 아이콘: Fluent UI System Icons © Microsoft (MIT)\n글꼴: Pretendard, Pretendard JP, JetBrains Mono (SIL OFL 1.1)'],
+    about: ['APEX GIF MAKER 정보', 'Flydigi APEX 시리즈 컨트롤러 스크린용 GIF 메이커\n버전 3.1.0 · 웹 체험판\n\n동영상 처리: FFmpeg (LGPL/GPL)\nUI: Qt for Python / PySide6 (LGPL)\nUI 아이콘: Fluent UI System Icons © Microsoft (MIT)\n글꼴: Pretendard, Pretendard JP, JetBrains Mono (SIL OFL 1.1)'],
   };
   menu.addEventListener('click', (event) => {
     const item = event.target.closest('[role^=menuitem]');
