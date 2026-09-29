@@ -216,7 +216,8 @@ def check_project(r: Result) -> None:
 
 _ZIP_NAME = re.compile(r"ApexGIFMaker_v\d+\.zip")
 _FULL_VERSION = re.compile(r"(?<![\w.])v(\d+\.\d+\.\d+)(?![\w.])")
-_PAGE_VERSION = re.compile(r"(?<![\w.])(\d+\.\d+)(?:\.\d+)?(?=\s*(?:개발|기준|버전|프리뷰|부터|은|는|을|를)|\s*$)")
+# "3.0.0부터"처럼 기능이 들어온 버전을 말하는 표현은 지난 사실이라 현재 버전과 비교하지 않습니다.
+_PAGE_VERSION = re.compile(r"(?<![\w.])(\d+\.\d+)(?:\.\d+)?(?=\s*(?:개발|기준|버전|프리뷰|은|는|을|를)|\s*$)")
 
 
 def check_docs(r: Result) -> None:
@@ -246,9 +247,9 @@ def check_docs(r: Result) -> None:
     for rel in ("docs/images/main.png", "docs/images/app-preview.webp", "docs/images/social-preview.png"):
         path = ROOT / rel
         if not path.is_file():
-            r.fail(f"{rel}이(가) 없습니다 (python tools/capture.py --docs)")
+            r.fail(f"{rel}이(가) 없습니다 (python tools/capture.py <샘플 영상> --docs)")
         elif path.stat().st_mtime + 1 < newest:
-            r.warn(f"{rel}이(가) 화면 코드보다 오래되었습니다. UI가 바뀌었다면 python tools/capture.py --docs로 새로 만드세요")
+            r.warn(f"{rel}이(가) 화면 코드보다 오래되었습니다. UI가 바뀌었다면 python tools/capture.py <샘플 영상> --docs로 새로 만드세요")
     main_png, social_png = ROOT / "docs" / "images" / "main.png", ROOT / "docs" / "images" / "social-preview.png"
     if main_png.is_file() and social_png.is_file() and social_png.stat().st_mtime + 1 < main_png.stat().st_mtime:
         r.warn("docs/images/social-preview.png이(가) main.png보다 오래되었습니다. python tools/social_preview.py로 새로 만드세요")

@@ -7,4 +7,4 @@ PySide6와 앱 전체를 끌어오지 않고 읽을 수 있게 하기 위해서�
 숫자로 비교하고(src/core/updater.py), 릴리즈 ZIP 이름(ApexGIFMaker_v300.zip)도 여기서 만든다.
 """
 
-APP_VERSION = "3.0.0"
+APP_VERSION = "3.1.0"

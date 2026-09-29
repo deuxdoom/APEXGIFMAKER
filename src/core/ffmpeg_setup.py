@@ -191,21 +191,26 @@ def migrate_legacy_dir() -> bool:
 
 
 def has_staged(target: Path | None = None) -> bool:
+    """받아 두고 아직 적용하지 못한 새 버전(.new)이 하나라도 있는지."""
     folder = target or config.tools_dir()
-    return all((folder / (name + STAGED_SUFFIX)).is_file() for name in tool_names())
+    return any((folder / (name + STAGED_SUFFIX)).is_file() for name in tool_names())
 
 
 def apply_staged(target: Path | None = None) -> bool:
-    """받아 둔 새 버전(.new)을 제자리에 적용합니다. ffmpeg가 실행 중이라 바꿀 수 없으면 False입니다."""
+    """받아 둔 새 버전(.new)을 제자리에 적용합니다. 남김없이 적용했으면 True입니다.
+
+    파일마다 따로 적용합니다. 하나가 실행 중이라 바꿀 수 없어도 나머지는 바꾸고, 남은 .new는 다음 실행 때
+    다시 적용합니다. (예전에는 ffmpeg만 바뀌고 ffprobe.exe.new가 남으면 영영 적용되지 않았습니다.)
+    """
     folder = target or config.tools_dir()
-    if not has_staged(folder):
-        return False
-    try:
-        for name in tool_names():
+    staged = [name for name in tool_names() if (folder / (name + STAGED_SUFFIX)).is_file()]
+    applied = bool(staged)
+    for name in staged:
+        try:
             os.replace(folder / (name + STAGED_SUFFIX), folder / name)
-    except OSError:
-        return False
-    return True
+        except OSError:
+            applied = False
+    return applied
 
 
 # --- 새 버전 확인과 업데이트 ---

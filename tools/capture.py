@@ -1,11 +1,14 @@
 # capture.py
 """화면을 띄우지 않고(오프스크린) 메인 창과 대화상자를 PNG로 찍습니다. README·소개 페이지 그림과 디자인 확인용입니다.
 
-    python tools/capture.py --docs                 README와 소개 페이지 그림을 새로 만들어 docs/images에 넣습니다.
+    python tools/capture.py 샘플영상.mp4 --docs     README와 소개 페이지 그림을 새로 만들어 docs/images에 넣습니다.
     python tools/capture.py 동영상.mp4 [--theme dark|light] [--lang ko] [--out 폴더] [--dialogs]
 
 --docs는 현재 화면·버전으로 docs/images/main.png(README)와 docs/images/app-preview.webp(소개 페이지)를
-다시 만듭니다. 동영상을 주지 않으면 ffmpeg로 데모 영상을 만들어 씁니다. UI나 버전이 바뀌었으면 커밋 전에 실행합니다.
+다시 만듭니다. UI나 버전이 바뀌었으면 커밋 전에 실행합니다.
+그림 속 영상 장면은 바꾸지 않습니다(사용자 지시): 지금 그림과 같은 팬텀 블레이드 샘플 영상
+(20260806 Phantom Blade Zero – Pre-Order Teaser)을 인자로 주고, 구간도 같은 9~18초로 찍습니다.
+영상을 주지 않으면 문서 그림을 건드리지 않고 멈춥니다. (데모 영상으로 바꿔 찍지 않음)
 --docs는 새 main.png로 GitHub 소셜 미리보기 그림(docs/images/social-preview.png)도 다시 만듭니다.
 main.png만 직접 바꿨다면 `python tools/social_preview.py`로 그 그림만 새로 만들 수 있습니다.
 그 밖의 결과는 기본적으로 F:/temp/APEXGIFMAKER/capture/ 아래에 저장합니다.
@@ -55,23 +58,6 @@ def save(widget: QWidget, path: Path) -> None:
     print(f"saved {path}")
 
 
-def make_demo_video(folder: Path) -> Path:
-    """로고 색에 맞춘 20초짜리 그라데이션 데모 영상을 만듭니다. (이미 있으면 그대로 씀)"""
-    target = folder / "demo.mp4"
-    if target.is_file():
-        return target
-    ffmpeg_path = ff.find_executable("ffmpeg")
-    if not ffmpeg_path:
-        raise SystemExit("ffmpeg가 없어 데모 영상을 만들 수 없습니다. 앱을 한 번 실행해 bin 폴더에 받아 두세요.")
-    source = ("gradients=s=1280x720:d=20:r=30:c0=0x061a3a:c1=0x398fe1:c2=0x0867c4:c3=0x6d28d9:c4=0x0ea5e9"
-              ":n=5:speed=0.04:type=spiral")
-    proc = ff.run([ffmpeg_path, "-hide_banner", "-loglevel", "error", "-y", "-f", "lavfi", "-i", source,
-                   "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", str(target)], timeout=300)
-    if proc.returncode != 0:
-        raise SystemExit(f"데모 영상을 만들지 못했습니다: {proc.stderr}")
-    return target
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("video", nargs="?", default="")
@@ -84,11 +70,14 @@ def main() -> int:
     parser.add_argument("--docs", action="store_true", help="README·소개 페이지 그림(docs/images)을 새로 만듭니다")
     args = parser.parse_args()
     images = ROOT / "docs" / "images"
+    if args.docs:
+        if not args.video:
+            print("--docs에는 지금 그림에 담긴 팬텀 블레이드 샘플 영상을 함께 주세요. "
+                  "그림 속 장면은 바꾸지 않으므로 영상 없이는 문서 그림을 새로 만들지 않습니다.", file=sys.stderr)
+            return 2
+        args.theme, args.lang, args.start, args.end = "dark", "ko", 9.0, 18.0
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    if args.docs:
-        args.theme, args.lang, args.start, args.end = "dark", "ko", 3.2, 8.4
-        args.video = args.video or str(make_demo_video(out))
 
     app = QApplication(sys.argv)
     settings = Settings(theme=args.theme, language=args.lang, confirm_exit=False)

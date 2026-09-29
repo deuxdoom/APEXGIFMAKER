@@ -43,14 +43,19 @@ class TaskRunner(QObject):
     def __init__(self, workers: int = 2, parent: QObject | None = None):
         super().__init__(parent)
         self._pool = ThreadPoolExecutor(max_workers=workers, thread_name_prefix="apex-task")
+        # 앱을 닫을 때 켜집니다. 오래 걸리는 작업(구간 재생 클립)은 이 신호로 ffmpeg를 멈춥니다.
+        self.stop = threading.Event()
 
-    def submit(self, token: object, fn: Callable[..., Any], *args: Any) -> Future:
+    def submit(self, token: object, fn: Callable[..., Any], *args: Any) -> Future | None:
+        """닫은 뒤에 들어온 요청은 무시하고 None을 돌려줍니다."""
+        if self.stop.is_set():
+            return None
         future = self._pool.submit(fn, *args)
         future.add_done_callback(lambda f, t=token: self._done(t, f))
         return future
 
     def _done(self, token: object, future: Future) -> None:
-        if future.cancelled():
+        if future.cancelled() or self.stop.is_set():
             return
         error = future.exception()
         if error is not None:
@@ -59,6 +64,7 @@ class TaskRunner(QObject):
             _safe_emit(self.finished, token, future.result())
 
     def shutdown(self) -> None:
+        self.stop.set()
         self._pool.shutdown(wait=False, cancel_futures=True)
 
 
@@ -67,6 +73,7 @@ class FrameLoader(QObject):
 
     추출 중에 들어온 요청은 마지막 것만 남겨 두었다가 이어서 처리합니다. 그래서 핸들을 끄는 동안에도
     ffmpeg가 쌓이지 않고, 손을 놓으면 마지막 위치의 프레임이 반드시 표시됩니다.
+    앱을 닫으면(shutdown) 추출 중인 ffmpeg도 멈춰서, 창이 닫힌 뒤 프로세스가 남지 않게 합니다.
     """
 
     frameReady = Signal(str, float, QImage)
@@ -83,6 +90,7 @@ class FrameLoader(QObject):
         self._pending: dict[str, float] = {}
         self._cache: OrderedDict[tuple[str, int], bytes] = OrderedDict()
         self._generation = 0
+        self._stop = threading.Event()
         self.ffmpeg = ""
         self.path = ""
         self._done.connect(self._on_done)
@@ -93,7 +101,7 @@ class FrameLoader(QObject):
         self._pending.clear()
 
     def request(self, slot: str, t: float) -> None:
-        if not (self.ffmpeg and self.path):
+        if self._stop.is_set() or not (self.ffmpeg and self.path):
             return
         data = self._cache.get((self.path, round(t * 1000)))
         if data is not None:
@@ -107,8 +115,10 @@ class FrameLoader(QObject):
 
     def _work(self, slot: str, t: float, generation: int, ffmpeg: str, path: str) -> None:
         try:
-            data = ff.grab_frame(ffmpeg, path, t, self.MAX_W, self.MAX_H)
+            data = ff.grab_frame(ffmpeg, path, t, self.MAX_W, self.MAX_H, cancel=self._stop)
             _safe_emit(self._done, slot, t, generation, QImage.fromData(data), data, "")
+        except ff.Cancelled:
+            return
         except Exception as exc:
             _safe_emit(self._done, slot, t, generation, None, None, str(exc))
 
@@ -127,20 +137,27 @@ class FrameLoader(QObject):
             self.request(slot, pending)
 
     def shutdown(self) -> None:
+        self._stop.set()
         self._pool.shutdown(wait=False, cancel_futures=True)
 
 
 class ThumbnailLoader(QObject):
-    """타임라인 필름스트립 썸네일을 필요한 시각만 추출합니다. 더는 보이지 않는 요청은 취소합니다."""
+    """타임라인 필름스트립 썸네일을 필요한 시각만 추출합니다.
+
+    화면을 옮기거나 확대해서 더는 보이지 않는 칸은, 기다리는 요청뿐 아니라 이미 추출 중인 ffmpeg도 멈춥니다.
+    그래야 일꾼(3개)이 지난 칸에 묶이지 않고 새로 보이는 칸을 바로 추출합니다. (키프레임 간격이 긴 영상은
+    한 장에 1~2초씩 걸리기도 합니다.)
+    """
 
     thumbnailReady = Signal(int, float, QImage)
-    _done = Signal(int, int, object)
+    _done = Signal(int, int, object, object)     # (세대, ms, 그림, 그 요청의 취소 신호)
 
     def __init__(self, parent: QObject | None = None):
         super().__init__(parent)
         self._pool = ThreadPoolExecutor(max_workers=3, thread_name_prefix="apex-thumb")
-        self._futures: dict[int, Future] = {}
+        self._jobs: dict[int, tuple[Future, threading.Event]] = {}
         self._generation = 0
+        self._closed = False
         self._source = ("", "", 90, 16 / 9)
         self._done.connect(self._on_done)
 
@@ -150,42 +167,55 @@ class ThumbnailLoader(QObject):
 
     def set_source(self, ffmpeg: str, path: str, height: int, aspect: float) -> int:
         self._generation += 1
-        for future in self._futures.values():
-            future.cancel()
-        self._futures.clear()
+        self._cancel_all()
         self._source = (ffmpeg, path, height, aspect)
         return self._generation
 
+    def _cancel_all(self) -> None:
+        for future, cancel in self._jobs.values():
+            cancel.set()
+            future.cancel()
+        self._jobs.clear()
+
     def request(self, times: list[float]) -> None:
         ffmpeg, path, _height, _aspect = self._source
-        if not (ffmpeg and path):
+        if self._closed or not (ffmpeg and path):
             return
         wanted = [round(t * 1000) for t in times]
         wanted_set = set(wanted)
-        for ms, future in list(self._futures.items()):
-            if ms not in wanted_set and future.cancel():
-                del self._futures[ms]
+        for ms in [ms for ms in self._jobs if ms not in wanted_set]:
+            future, cancel = self._jobs.pop(ms)
+            cancel.set()
+            future.cancel()
         for ms in wanted:
-            if ms not in self._futures:
-                self._futures[ms] = self._pool.submit(self._work, self._generation, ms, self._source)
+            if ms not in self._jobs:
+                cancel = threading.Event()
+                future = self._pool.submit(self._work, self._generation, ms, self._source, cancel)
+                self._jobs[ms] = (future, cancel)
 
-    def _work(self, generation: int, ms: int, source: tuple[str, str, int, float]) -> None:
+    def _work(self, generation: int, ms: int, source: tuple[str, str, int, float], cancel: threading.Event) -> None:
         ffmpeg, path, height, aspect = source
         try:
             width = max(16, int(height * min(max(aspect, 0.5), 2.5)))
-            image = QImage.fromData(ff.grab_frame(ffmpeg, path, ms / 1000, width, height, quality=5))
+            image = QImage.fromData(ff.grab_frame(ffmpeg, path, ms / 1000, width, height, quality=5, cancel=cancel))
+        except ff.Cancelled:
+            return
         except Exception:
             image = QImage()
-        _safe_emit(self._done, generation, ms, image)
+        _safe_emit(self._done, generation, ms, image, cancel)
 
-    def _on_done(self, generation: int, ms: int, image: object) -> None:
-        if generation != self._generation:
+    def _on_done(self, generation: int, ms: int, image: object, cancel: object) -> None:
+        job = self._jobs.get(ms)
+        if job is not None and job[1] is cancel:    # 같은 시각을 다시 요청한 새 작업은 지우지 않습니다.
+            del self._jobs[ms]
+        if generation != self._generation or (isinstance(cancel, threading.Event) and cancel.is_set()):
             return
-        self._futures.pop(ms, None)
         if isinstance(image, QImage) and not image.isNull():
             self.thumbnailReady.emit(generation, ms / 1000, image)
 
     def shutdown(self) -> None:
+        self._closed = True
+        self._cancel_all()
         self._pool.shutdown(wait=False, cancel_futures=True)
 
 

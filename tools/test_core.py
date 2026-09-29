@@ -2,9 +2,15 @@
 """src/core와 src/i18n 단위 테스트 (Qt 없이 실행). `python tools/check.py`가 함께 실행합니다."""
 from __future__ import annotations
 
+import atexit
 import io
 import json
+import shutil
+import subprocess
+import sys
 import tempfile
+import threading
+import time
 import unittest
 import zipfile
 from pathlib import Path
@@ -16,12 +22,15 @@ _bootstrap.setup()
 
 from src import i18n  # noqa: E402
 from src.core import apply_update, ffmpeg, ffmpeg_setup, gif, gifinfo, self_update, settings, timecode  # noqa: E402
-from src.core import updater  # noqa: E402
+from src.core import encoder, updater  # noqa: E402
 from src.core.trim import Selection, TrimRules  # noqa: E402
 
 
 def _tmp(prefix: str) -> Path:
-    return Path(tempfile.mkdtemp(prefix=prefix))
+    """테스트용 임시 폴더. 검사가 끝나면 지웁니다."""
+    path = Path(tempfile.mkdtemp(prefix=prefix))
+    atexit.register(shutil.rmtree, path, True)
+    return path
 
 
 class TimecodeTests(unittest.TestCase):
@@ -119,15 +128,73 @@ class GifTests(unittest.TestCase):
         self.assertEqual(palette[palette.index("-ss") + 1], "1.500")
         self.assertEqual(palette[palette.index("-t") + 1], "2.500")
         self.assertIn("palettegen=stats_mode=full", palette[palette.index("-vf") + 1])
-        self.assertIn("paletteuse=dither=bayer", gif_cmd[gif_cmd.index("-lavfi") + 1])
+        self.assertNotIn("showinfo", palette[palette.index("-vf") + 1])
+        graph = gif_cmd[gif_cmd.index("-lavfi") + 1]
+        self.assertIn("paletteuse=dither=bayer", graph)
+        self.assertIn(gif.PROGRESS_FILTER, graph)                  # 진행률은 ffmpeg 로그에서 읽습니다.
+        self.assertEqual(gif_cmd[gif_cmd.index("-loglevel") + 1], "level+info")
         self.assertEqual(gif_cmd[gif_cmd.index("-f") + 1], "gif")
         with self.assertRaises(ValueError):
             gif.build_gif_commands("ffmpeg", "in.mp4", 3.0, 3.0, gif.GifOptions(), "p", "o")
+
+    def test_one_pass(self):
+        opts = gif.GifOptions(frame_mode="dedupe")
+        cmd = gif.build_one_pass_command("ffmpeg", "in.mp4", 2.0, 6.0, opts, "out.gif.part")
+        graph = cmd[cmd.index("-lavfi") + 1]
+        self.assertIn("split[a][b];[a]palettegen=stats_mode=full[p];[b][p]paletteuse", graph)
+        # 진행률 시각은 중복 제거 전(원본 기준)에서 읽어야 정지 구간이 접혀도 끝까지 올라갑니다.
+        self.assertLess(graph.index(gif.PROGRESS_FILTER), graph.index("mpdecimate"))
+        self.assertNotIn("-i pal", " ".join(cmd))
+        # APEX 기본 크기는 최대 FPS·최대 길이도 1-pass, 큰 GIF는 2-pass입니다.
+        self.assertTrue(gif.uses_one_pass(30.0, gif.GifOptions(fps=60)))
+        self.assertFalse(gif.uses_one_pass(30.0, gif.GifOptions(width=1280, height=720, fps=30)))
+        limit_frames = gif.ONE_PASS_MAX_PIXELS // (160 * 80)
+        self.assertTrue(gif.uses_one_pass(limit_frames / 10, gif.GifOptions(fps=10)))
+        self.assertFalse(gif.uses_one_pass((limit_frames + 1) / 10, gif.GifOptions(fps=10)))
 
     def test_helpers(self):
         self.assertEqual(gif.suggest_filename("C:/v/clip.mp4", 1.2, 4.7), "clip_1200_4700.gif")
         self.assertEqual(gif.estimate_frames(6.0, 12), 72)
         self.assertEqual(gif.estimate_frames(0.0, 12), 1)
+        # .5 경계는 ffmpeg처럼 올립니다. (round()는 16.5 → 16, 2.5 → 2)
+        self.assertEqual(gif.estimate_frames(1.375, 12), 17)
+        self.assertEqual(gif.estimate_frames(2.5, 1), 3)
+        self.assertEqual(gif.estimate_frames(1.9, 15), 29)
+        self.assertEqual(gif.estimate_frames(1.14, 25), 29)    # 1.14 × 25가 28.4999…로 계산되어도 29
+        self.assertEqual(gif.estimate_frames(1.35, 12), 16)
+
+
+class EncoderLogTests(unittest.TestCase):
+    def test_parse_log_line(self):
+        parse = encoder.parse_log_line
+        self.assertEqual(parse("[Parsed_showinfo_3 @ 0000] [info] n:  12 pts:     12 pts_time:1.5 duration:1\n"),
+                         (1.5, ""))
+        self.assertEqual(parse("[Parsed_showinfo_3 @ 0000] [info] config in time_base: 1/12"), (None, ""))
+        self.assertEqual(parse("[info] Input #0, mov,mp4, from 'a.mp4':"), (None, ""))
+        self.assertEqual(parse("[swscaler @ 0000] [warning] deprecated pixel format"), (None, ""))
+        self.assertEqual(parse("[in#0 @ 0000] [error] Error opening input"), (None, "[in#0 @ 0000] Error opening input"))
+        self.assertEqual(parse("[fatal] Error opening input files"), (None, "Error opening input files"))
+        self.assertEqual(parse("no level tag"), (None, "no level tag"))    # 형식이 바뀌어도 오류는 남깁니다.
+
+
+class CancellableRunTests(unittest.TestCase):
+    SLEEP = [sys.executable, "-c", "import time; time.sleep(30)"]
+
+    def test_output_and_cancel(self):
+        done = ffmpeg.run([sys.executable, "-c", "print('hi')"], cancel=threading.Event())
+        self.assertEqual((done.returncode, done.stdout.strip()), (0, "hi"))
+        cancel = threading.Event()
+        threading.Timer(0.3, cancel.set).start()
+        started = time.monotonic()
+        with self.assertRaises(ffmpeg.Cancelled):
+            ffmpeg.run(self.SLEEP, cancel=cancel)
+        self.assertLess(time.monotonic() - started, 5)
+        with self.assertRaises(ffmpeg.Cancelled):             # 이미 켜져 있으면 실행하지 않습니다.
+            ffmpeg.run(self.SLEEP, cancel=cancel)
+
+    def test_timeout(self):
+        with self.assertRaises(subprocess.TimeoutExpired):
+            ffmpeg.run(self.SLEEP, timeout=0.3, cancel=threading.Event())
 
 
 def make_gif(delays: list[int], loop: int | None = 0) -> bytes:
@@ -379,6 +446,27 @@ class FfmpegSetupTests(unittest.TestCase):
         self.assertFalse(ffmpeg_setup.has_staged(target))
         self.assertFalse(ffmpeg_setup.apply_staged(target))
         self.assertEqual((target / "python314.dll").read_text(), "app")
+
+    def test_partial_apply_is_finished_next_time(self):
+        target = _tmp("ffbin-")
+        for name in ("ffmpeg.exe", "ffprobe.exe"):
+            (target / name).write_text("old")
+            (target / (name + ffmpeg_setup.STAGED_SUFFIX)).write_text("new")
+        real_replace = ffmpeg_setup.os.replace
+
+        def busy_ffprobe(src, dst):
+            if Path(dst).name == "ffprobe.exe":
+                raise PermissionError("in use")
+            real_replace(src, dst)
+
+        # ffprobe가 실행 중이라 한 파일만 바뀌어도, 남은 .new는 다음에 적용됩니다.
+        with mock.patch.object(ffmpeg_setup.os, "replace", busy_ffprobe):
+            self.assertFalse(ffmpeg_setup.apply_staged(target))
+        self.assertEqual((target / "ffmpeg.exe").read_text(), "new")
+        self.assertTrue(ffmpeg_setup.has_staged(target))
+        self.assertTrue(ffmpeg_setup.apply_staged(target))
+        self.assertEqual((target / "ffprobe.exe").read_text(), "new")
+        self.assertFalse(ffmpeg_setup.has_staged(target))
 
     def test_migrate_legacy_dir(self):
         app = _tmp("legacy-")

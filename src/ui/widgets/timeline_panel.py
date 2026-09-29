@@ -133,5 +133,10 @@ class TimelinePanel(Card):
             new = rules.set_length(sel, sel.length + delta)
         self.timeline.set_selection(new)
 
+    def commit_edits(self) -> None:
+        """입력칸에 쓰고 아직 Enter를 누르지 않은 시간을 반영합니다. (Ctrl+Enter 같은 단축키는 입력칸보다 먼저 실행됨)"""
+        for field in (self.start_field, self.length_field, self.end_field):
+            field.commit()
+
     def selection(self) -> Selection:
         return self.timeline.selection()

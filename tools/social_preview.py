@@ -10,7 +10,7 @@
 
 언제 다시 만들어도 그때의 화면과 기능이 맞게 담기도록, 시간이 지나면 틀려지는 내용은 넣지 않습니다.
 버전 번호·Windows 버전·APEX 모델 목록은 쓰지 않고, 앱 화면 위에 좌표로 찍는 표시도 두지 않습니다.
-화면은 늘 main.png에서 가져오므로 UI가 바뀌면 `python tools/capture.py --docs`로 main.png와 이 그림을 함께
+화면은 늘 main.png에서 가져오므로 UI가 바뀌면 `python tools/capture.py <샘플 영상> --docs`로 main.png와 이 그림을 함께
 새로 만듭니다. main.png가 화면 코드보다 오래되었으면 이 도구가 알려 줍니다. 대표 기능이 바뀌면 FEATURES를 고칩니다.
 
 GitHub 템플릿(Repo Card Template)은 1280×640에서 사방 80px(40pt) 테두리 안에만 중요한 내용을 두라고 권합니다.
@@ -275,7 +275,7 @@ def build(source: Path, target: Path, *, with_guides: bool = False) -> bool:
             print(f"guides  {check}")
     if _stale(source):
         print(f"참고: {_shown(source)}이(가) 화면 코드보다 오래되었습니다. UI가 바뀌었다면 "
-              "python tools/capture.py --docs로 앱 화면과 이 그림을 함께 새로 만드세요")
+              "python tools/capture.py <샘플 영상> --docs로 앱 화면과 이 그림을 함께 새로 만드세요")
     ok = True
     if problems:
         print("안전 영역(사방 80px) 밖이나 앱 화면 쪽으로 나간 요소가 있습니다: " + ", ".join(problems), file=sys.stderr)

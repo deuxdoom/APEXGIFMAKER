@@ -94,6 +94,11 @@ class OptionsPanel(Card):
         self.width_spin.setValue(DEFAULT_WIDTH)
         self.height_spin.setValue(DEFAULT_HEIGHT)
 
+    def commit_edits(self) -> None:
+        """크기·FPS 칸에 입력하고 아직 Enter를 누르지 않은 값을 반영합니다. (입력 중에는 값이 바뀌지 않게 해 두었음)"""
+        for spin in (self.width_spin, self.height_spin, self.fps_spin):
+            spin.interpretText()
+
     def options(self) -> GifOptions:
         return GifOptions(
             width=self.width_spin.value(), height=self.height_spin.value(), fps=self.fps_spin.value(),

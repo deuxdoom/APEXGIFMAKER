@@ -3,9 +3,13 @@
 from __future__ import annotations
 
 import os
+import shutil
+import sys
 import tempfile
+import threading
 import unittest
 from pathlib import Path
+from unittest import mock
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -18,7 +22,9 @@ from PySide6.QtGui import QWheelEvent  # noqa: E402
 from PySide6.QtTest import QTest  # noqa: E402
 from PySide6.QtWidgets import QApplication  # noqa: E402
 
+from src.core import ffmpeg as ff  # noqa: E402
 from src.core.encoder import EncodeResult  # noqa: E402
+from src.core.ffmpeg import VideoInfo  # noqa: E402
 from src.core.gif import GifOptions  # noqa: E402
 from src.core.gifinfo import read_gif_info  # noqa: E402
 from src.core.settings import Settings  # noqa: E402
@@ -31,6 +37,7 @@ from src.ui.widgets.options_panel import OptionsPanel  # noqa: E402
 from src.ui.widgets.output_panel import OutputPanel  # noqa: E402
 from src.ui.widgets.timeline import HANDLE_W, TimelineWidget  # noqa: E402
 from src.ui.widgets.timeline_panel import TimelinePanel  # noqa: E402
+from src.ui.workers import ThumbnailLoader  # noqa: E402
 
 _existing = QApplication.instance()
 APP = _existing if isinstance(_existing, QApplication) else QApplication([])
@@ -152,6 +159,15 @@ class TimelinePanelTests(unittest.TestCase):
         self.panel.start_field.forward.click()
         self.assertEqual(self.panel.selection(), Selection(0.1, 6.1))
 
+    def test_commit_pending_edit(self):
+        # Enter 없이 입력만 한 값도 commit_edits()로 반영됩니다. (Ctrl+Enter 단축키 대비)
+        self.panel.start_field.edit.setText("00:20.000")
+        self.assertEqual(self.panel.selection(), Selection(0.0, 6.0))
+        self.panel.commit_edits()
+        self.assertEqual(self.panel.selection(), Selection(20.0, 26.0))
+        self.panel.commit_edits()                                  # 바뀐 것이 없으면 그대로
+        self.assertEqual(self.panel.selection(), Selection(20.0, 26.0))
+
     def test_frames_chip(self):
         self.panel.set_frame_settings(10, False)
         self.assertIn("60", self.panel.frames_chip.text())
@@ -181,6 +197,37 @@ class PanelTests(unittest.TestCase):
         self.assertEqual(panel.options(), opts)
         panel.reset_button.click()
         self.assertEqual((panel.options().width, panel.options().height), (160, 80))
+        panel.width_spin.lineEdit().setText("320")                 # 입력 중에는 값이 바뀌지 않습니다.
+        self.assertEqual(panel.options().width, 160)
+        panel.commit_edits()
+        self.assertEqual(panel.options().width, 320)
+
+
+class LoaderTests(unittest.TestCase):
+    def test_thumbnail_requests_stop_running_ffmpeg(self):
+        started = threading.Event()
+        signals: list[threading.Event] = []
+
+        def fake_grab(*_args, **kwargs):
+            cancel = kwargs["cancel"]
+            signals.append(cancel)
+            started.set()
+            if cancel.wait(5):
+                raise ff.Cancelled()
+            return b""
+
+        loader = ThumbnailLoader()
+        loader.set_source("ffmpeg", "clip.mp4", 58, 16 / 9)
+        with mock.patch("src.ui.workers.ff.grab_frame", fake_grab):
+            loader.request([1.0])
+            self.assertTrue(started.wait(5))
+            loader.request([2.0])              # 1초 칸이 화면에서 사라지면 추출 중인 ffmpeg도 멈춥니다.
+            self.assertTrue(signals[0].is_set())
+            self.assertEqual(list(loader._jobs), [2000])
+            loader.shutdown()                  # 앱을 닫으면 남은 추출도 모두 멈추고, 새 요청은 받지 않습니다.
+            self.assertTrue(all(signal.is_set() for signal in signals))
+            loader.request([3.0])
+            self.assertEqual(loader._jobs, {})
 
 
 class WindowTests(unittest.TestCase):
@@ -198,6 +245,27 @@ class WindowTests(unittest.TestCase):
             self.assertFalse(window.grab().isNull())
         window.close()
 
+    def test_generate_uses_pending_edits(self):
+        # 시간·크기를 입력하고 Enter 없이 Ctrl+Enter(= generate)를 눌러도 입력한 값으로 만듭니다.
+        folder = Path(tempfile.mkdtemp(prefix="window-"))
+        self.addCleanup(shutil.rmtree, folder, True)
+        window = MainWindow(Settings(confirm_exit=False, output_dir=str(folder)), background=False, persist=False)
+        window.show()
+        window.ffmpeg = sys.executable                            # 실제로 실행하지는 않습니다(GifJob을 바꿔 끼움).
+        window.video = VideoInfo(str(folder / "clip.mp4"), 100.0, 1920, 1080, 30.0, "h264")
+        window.timeline.set_video(100.0, 16 / 9, 1 / 30)
+        window.timeline_panel.set_video_loaded(True)
+        window.timeline_panel.start_field.edit.setText("12")
+        window.options_panel.fps_spin.lineEdit().setText("20")
+        with mock.patch("src.ui.main_window.GifJob") as job_class:
+            window.generate()
+        encoder = job_class.call_args.args[0]
+        self.assertEqual((encoder.start, encoder.end, encoder.options.fps), (12.0, 18.0, 20))
+        self.assertFalse(window.timeline_panel.play_button.isEnabled())    # 만드는 동안 구간 재생은 꺼짐
+        window._finish_job()
+        self.assertTrue(window.timeline_panel.play_button.isEnabled())
+        window.close()
+
     def test_dialogs(self):
         box = dialogs.MessageDialog(None, "t", "text", kind="question",
                                     buttons=(("no", "", ""), ("yes", "", "primary")), checkbox="c")
@@ -210,7 +278,9 @@ class WindowTests(unittest.TestCase):
 
     def test_result_dialog(self):
         from test_core import make_gif
-        path = Path(tempfile.mkdtemp(prefix="result-")) / "out.gif"
+        folder = Path(tempfile.mkdtemp(prefix="result-"))
+        self.addCleanup(shutil.rmtree, folder, True)
+        path = folder / "out.gif"
         path.write_bytes(make_gif([8, 9, 8]))
         dialog = ResultDialog(None, EncodeResult(str(path), read_gif_info(path), 1.2))
         dialog.show()

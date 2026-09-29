@@ -6,11 +6,19 @@ import json
 import os
 import shutil
 import subprocess
+import threading
+import time
 from dataclasses import dataclass
 from fractions import Fraction
 from pathlib import Path
 
 from . import config
+
+CANCEL_POLL = 0.05     # 취소 신호를 확인하는 간격(초)
+
+
+class Cancelled(Exception):
+    """취소 신호(threading.Event)를 받아 실행 중인 외부 명령을 멈췄습니다."""
 
 
 def exe_name(name: str) -> str:
@@ -55,12 +63,35 @@ def popen_kwargs() -> dict:
     return kwargs
 
 
-def run(cmd: list[str], *, timeout: float | None = None, binary: bool = False) -> subprocess.CompletedProcess:
-    """외부 명령을 창 없이 실행하고 출력을 모아서 반환합니다."""
+def run(cmd: list[str], *, timeout: float | None = None, binary: bool = False,
+        cancel: threading.Event | None = None) -> subprocess.CompletedProcess:
+    """외부 명령을 창 없이 실행하고 출력을 모아서 반환합니다.
+
+    cancel을 주면 실행 중에도 신호를 확인해서, 켜지면 프로세스를 끝내고 Cancelled를 냅니다.
+    시간 초과는 subprocess.run과 같이 TimeoutExpired입니다.
+    """
     kwargs = popen_kwargs()
     if not binary:
         kwargs.update(text=True, encoding="utf-8", errors="replace")
-    return subprocess.run(cmd, capture_output=True, timeout=timeout, **kwargs)
+    if cancel is None:
+        return subprocess.run(cmd, capture_output=True, timeout=timeout, **kwargs)
+    if cancel.is_set():
+        raise Cancelled()
+    deadline = None if timeout is None else time.monotonic() + timeout
+    with subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs) as proc:
+        while True:
+            try:
+                stdout, stderr = proc.communicate(timeout=CANCEL_POLL)
+                return subprocess.CompletedProcess(cmd, proc.returncode, stdout, stderr)
+            except subprocess.TimeoutExpired:
+                expired = deadline is not None and time.monotonic() >= deadline
+                if not (cancel.is_set() or expired):
+                    continue
+                proc.kill()
+                proc.communicate()
+                if cancel.is_set():
+                    raise Cancelled() from None
+                raise subprocess.TimeoutExpired(cmd, timeout or 0) from None
 
 
 def ffmpeg_version(ffmpeg: str) -> str:
@@ -157,10 +188,11 @@ def probe_video(ffprobe: str, path: str, *, timeout: float = 30) -> VideoInfo:
 # --- 프레임 추출 ---
 
 def grab_frame(ffmpeg: str, path: str, ts: float, max_w: int, max_h: int, *,
-               quality: int = 3, timeout: float = 30) -> bytes:
+               quality: int = 3, timeout: float = 30, cancel: threading.Event | None = None) -> bytes:
     """지정한 시각의 프레임을 비율을 유지한 채 max_w×max_h 안에 맞춰 JPEG 바이트로 반환합니다.
 
     마지막 프레임 이후를 탐색하면 프레임이 나오지 않으므로, 결과가 비면 조금 앞에서 다시 시도합니다.
+    cancel이 켜지면 추출 중인 ffmpeg를 끝내고 Cancelled를 냅니다.
     """
     vf = f"scale=w={max_w}:h={max_h}:force_original_aspect_ratio=decrease:flags=bilinear:out_range=full"
     for attempt_ts in (max(0.0, ts), max(0.0, ts - 0.5), max(0.0, ts - 2.0)):
@@ -168,7 +200,7 @@ def grab_frame(ffmpeg: str, path: str, ts: float, max_w: int, max_h: int, *,
                     "-ss", f"{attempt_ts:.3f}", "-i", path, "-an", "-sn", "-dn",
                     "-frames:v", "1", "-vf", vf,
                     "-f", "image2pipe", "-c:v", "mjpeg", "-q:v", str(quality), "-"],
-                   timeout=timeout, binary=True)
+                   timeout=timeout, binary=True, cancel=cancel)
         if proc.stdout:
             return proc.stdout
         if attempt_ts == 0.0:
@@ -178,11 +210,11 @@ def grab_frame(ffmpeg: str, path: str, ts: float, max_w: int, max_h: int, *,
 
 
 def export_clip(ffmpeg: str, path: str, start: float, length: float, output: str | Path,
-                *, timeout: float = 300) -> subprocess.CompletedProcess:
+                *, timeout: float = 300, cancel: threading.Event | None = None) -> subprocess.CompletedProcess:
     """구간 재생용 MP4를 만듭니다. 키프레임에 끌려가지 않도록 스트림 복사 대신 빠르게 재인코딩합니다."""
     return run([ffmpeg, "-hide_banner", "-nostdin", "-loglevel", "error",
                 "-ss", f"{start:.3f}", "-t", f"{length:.3f}", "-i", path,
                 "-map", "0:v:0", "-map", "0:a:0?",
                 "-c:v", "libx264", "-preset", "ultrafast", "-crf", "20", "-pix_fmt", "yuv420p",
                 "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart",
-                "-y", str(output)], timeout=timeout)
+                "-y", str(output)], timeout=timeout, cancel=cancel)

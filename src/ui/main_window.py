@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import tempfile
+import threading
 import time
 from pathlib import Path
 
@@ -60,6 +61,7 @@ class MainWindow(QWidget):
         self._probe_serial = 0
         self._last_sel = (-1.0, -1.0)
         self._job: GifJob | None = None
+        self._exporting = False     # 구간 재생용 클립을 만드는 중
         self._setup_job: FfmpegSetupJob | None = None
         self._tool_job: ToolUpdateJob | None = None
         self._background = background
@@ -160,7 +162,17 @@ class MainWindow(QWidget):
     def _update_ready_state(self) -> None:
         ready = self.video is not None and bool(self.ffmpeg)
         self.output_panel.set_ready(ready)
-        self.timeline_panel.play_button.setEnabled(ready)
+        # 구간 재생은 GIF를 만드는 동안과 클립을 만드는 동안에는 꺼 둡니다.
+        self.timeline_panel.play_button.setEnabled(ready and self._job is None and not self._exporting)
+
+    def _commit_edits(self) -> None:
+        """입력칸에 쓰고 Enter를 누르지 않은 시간·크기·FPS를 반영합니다.
+
+        Ctrl+Enter·Ctrl+P 같은 단축키는 입력칸이 키를 받기 전에 실행되므로, 이렇게 하지 않으면 방금 입력한 값이
+        무시된 채 이전 구간·옵션으로 만들어집니다.
+        """
+        self.timeline_panel.commit_edits()
+        self.options_panel.commit_edits()
 
     # ------------------------------------------------------------------ 설정
     def _restore_settings(self) -> None:
@@ -373,7 +385,8 @@ class MainWindow(QWidget):
             if isinstance(result, ff.VideoInfo):
                 self._on_probed(result)
         elif kind == "clip":
-            self.timeline_panel.play_button.setEnabled(self.video is not None)
+            self._exporting = False
+            self._update_ready_state()
             QDesktopServices.openUrl(QUrl.fromLocalFile(str(result)))
         elif kind == "cleanup" and result:
             self.log(f"[INFO] {tr('log.legacy_cache', items=', '.join(map(str, result)))}")  # type: ignore[arg-type]
@@ -386,6 +399,7 @@ class MainWindow(QWidget):
             self.log(f"[ERR] {tr('msg.probe_failed', error=message)}")
             dialogs.error(self, tr("msg.probe_failed", error=message))
         elif kind == "clip":
+            self._exporting = False
             self._update_ready_state()
             self.log(f"[ERR] {tr('log.clip_failed', error=message)}")
             dialogs.error(self, tr("msg.clip_failed", error=message))
@@ -394,12 +408,16 @@ class MainWindow(QWidget):
 
     # ------------------------------------------------------------------ 구간 재생
     def play_range(self) -> None:
-        if self.video is None or not self.ffmpeg:
+        # 단축키(Ctrl+P)는 단추가 꺼져 있어도 들어오므로 같은 조건을 여기서도 확인합니다.
+        if self.video is None or not self.ffmpeg or self._job is not None or self._exporting:
             return
+        self._commit_edits()
         sel = self.timeline.selection()
-        self.timeline_panel.play_button.setEnabled(False)
+        self._exporting = True
+        self._update_ready_state()
         self.log_panel.last_line.setText(tr("status.exporting_clip"))
-        self.tasks.submit(("clip",), _export_clip, self.ffmpeg, self.video.path, sel.start, sel.length)
+        self.tasks.submit(("clip",), _export_clip, self.ffmpeg, self.video.path, sel.start, sel.length,
+                          self.tasks.stop)
 
     # ------------------------------------------------------------------ GIF 생성
     def choose_folder(self) -> None:
@@ -416,6 +434,7 @@ class MainWindow(QWidget):
     def generate(self) -> None:
         if self._job is not None:
             return
+        self._commit_edits()
         video = self.video
         if video is None:
             dialogs.warn(self, tr("msg.load_video_first"))
@@ -448,7 +467,7 @@ class MainWindow(QWidget):
         job.finished.connect(job.deleteLater)
         self._job = job
         self.output_panel.set_busy(True)
-        self.timeline_panel.play_button.setEnabled(False)
+        self._update_ready_state()
         self.log_panel.last_line.setText(tr("status.generating"))
         job.start()
 
@@ -557,6 +576,7 @@ class MainWindow(QWidget):
                 tool_job.cancel()
                 tool_job.wait(3000)
         if self._persist:
+            self.options_panel.commit_edits()
             self._save_settings()
         for worker in (self.tasks, self.frames, self.thumbs):
             worker.shutdown()
@@ -601,8 +621,9 @@ def _writable(folder: Path) -> bool:
         return False
 
 
-def _export_clip(ffmpeg: str, source: str, start: float, length: float) -> str:
-    """구간 재생용 MP4를 임시 폴더에 만듭니다. 재생 중인 이전 파일과 겹치지 않도록 이름에 시각을 붙입니다."""
+def _export_clip(ffmpeg: str, source: str, start: float, length: float, cancel: threading.Event) -> str:
+    """구간 재생용 MP4를 임시 폴더에 만듭니다. 재생 중인 이전 파일과 겹치지 않도록 이름에 시각을 붙입니다.
+    앱을 닫으면(cancel) 만들던 ffmpeg를 멈춥니다. 그래야 창이 닫힌 뒤 프로세스가 남아 업데이트 적용을 막지 않습니다."""
     folder = config.temp_dir() / "clips"
     folder.mkdir(parents=True, exist_ok=True)
     for old in folder.glob("clip-*.mp4"):
@@ -611,7 +632,11 @@ def _export_clip(ffmpeg: str, source: str, start: float, length: float) -> str:
         except OSError:
             pass
     target = folder / f"clip-{int(time.time() * 1000)}.mp4"
-    proc = ff.export_clip(ffmpeg, source, start, length, target)
-    if proc.returncode != 0 or not target.is_file():
-        raise RuntimeError(proc.stderr.strip() or f"ffmpeg exited with code {proc.returncode}")
+    try:
+        proc = ff.export_clip(ffmpeg, source, start, length, target, cancel=cancel)
+        if proc.returncode != 0 or not target.is_file():
+            raise RuntimeError(proc.stderr.strip() or f"ffmpeg exited with code {proc.returncode}")
+    except BaseException:
+        target.unlink(missing_ok=True)      # 실패하거나 취소되면 만들다 만 파일을 남기지 않습니다.
+        raise
     return str(target)

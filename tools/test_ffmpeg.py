@@ -5,9 +5,12 @@
 """
 from __future__ import annotations
 
+import shutil
 import tempfile
+import threading
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import _bootstrap
 
@@ -38,6 +41,10 @@ class FfmpegTests(unittest.TestCase):
         if proc.returncode != 0:
             raise unittest.SkipTest(f"cannot create test video: {proc.stderr}")
 
+    @classmethod
+    def tearDownClass(cls) -> None:
+        shutil.rmtree(cls.folder, ignore_errors=True)
+
     def test_probe(self):
         info = ff.probe_video(FFPROBE, self.video)
         self.assertAlmostEqual(info.duration, 5.0, delta=0.05)
@@ -48,6 +55,12 @@ class FfmpegTests(unittest.TestCase):
         for ts in (0.0, 2.5, 5.0):       # 5.0초는 마지막 프레임 이후라 앞쪽으로 다시 시도해야 합니다.
             data = ff.grab_frame(FFMPEG, self.video, ts, 640, 360)
             self.assertEqual(data[:2], b"\xff\xd8", ts)
+        running = ff.grab_frame(FFMPEG, self.video, 1.0, 64, 36, cancel=threading.Event())
+        self.assertEqual(running[:2], b"\xff\xd8")
+        stopped = threading.Event()
+        stopped.set()
+        with self.assertRaises(ff.Cancelled):
+            ff.grab_frame(FFMPEG, self.video, 1.0, 64, 36, cancel=stopped)
 
     def encode(self, start: float, end: float, opts: GifOptions, name: str, **callbacks):
         encoder = GifEncoder(FFMPEG, self.video, start, end, opts, self.folder / name)
@@ -64,17 +77,31 @@ class FfmpegTests(unittest.TestCase):
         self.assertEqual(info.frames, 36)
         self.assertAlmostEqual(info.duration_ms, 3000, delta=100)
         self.assertEqual(info.loop, 0)
-        self.assertEqual(stages, ["palette", "encode"])
+        self.assertEqual(stages, ["encode"])                    # 160×80은 영상을 한 번만 읽는 1-pass
         self.assertAlmostEqual(progress[-1], 1.0)
+        self.assertEqual(progress, sorted(progress))
         self.assertFalse((self.folder / "even.gif.part").exists())
+
+    def test_one_pass_matches_two_pass(self):
+        for mode in ("even", "dedupe"):
+            opts = GifOptions(frame_mode=mode)
+            _, one = self.encode(0.5, 4.5, opts, f"one-{mode}.gif")
+            stages: list[str] = []
+            with mock.patch("src.core.encoder.uses_one_pass", return_value=False):
+                _, two = self.encode(0.5, 4.5, opts, f"two-{mode}.gif", on_stage=stages.append)
+            self.assertEqual(stages, ["palette", "encode"])
+            self.assertEqual(Path(one.path).read_bytes(), Path(two.path).read_bytes(), mode)
 
     def test_encode_letterbox_dedupe(self):
         opts = GifOptions(width=120, height=120, scale_mode="letterbox", frame_mode="dedupe", dither="bayer")
-        _, result = self.encode(2.0, 5.0, opts, "dedupe.gif")
+        progress: list[float] = []
+        _, result = self.encode(2.0, 5.0, opts, "dedupe.gif", on_progress=progress.append)
         info = result.info
         assert info is not None
         self.assertEqual((info.width, info.height), (120, 120))
         self.assertLess(info.frames, 36)          # 뒤 2초 정지 구간이 접힙니다.
+        # 진행률은 원본 기준이라 정지 구간이 접혀도 끝 무렵까지 올라갑니다. (예전에는 1/3쯤에서 100%로 뛰었음)
+        self.assertGreaterEqual(max(progress[:-1]), 0.9)
 
     def test_cancel_during_encode(self):
         target = self.folder / "cancelled.gif"

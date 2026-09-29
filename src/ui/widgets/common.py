@@ -160,7 +160,7 @@ class TimeField(QWidget):
         layout.addWidget(self.box)
         self.back.clicked.connect(lambda: self._nudge(-1))
         self.forward.clicked.connect(lambda: self._nudge(1))
-        self.edit.editingFinished.connect(self._commit)
+        self.edit.editingFinished.connect(self.commit)
         self._flash = QTimer(self)
         self._flash.setSingleShot(True)
         self._flash.setInterval(1600)
@@ -175,7 +175,8 @@ class TimeField(QWidget):
         self._shown = self._format(seconds)
         self.edit.setText(self._shown)
 
-    def _commit(self) -> None:
+    def commit(self) -> None:
+        """입력한 글을 값으로 반영합니다. 바뀐 것이 없으면 아무 일도 하지 않으므로 언제 불러도 됩니다."""
         text = self.edit.text()
         if text == self._shown:
             return
