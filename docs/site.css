@@ -513,3 +513,13 @@
 .update-flow .verify small{color:var(--blue)}
 @media(max-width:950px){.update-card{grid-template-columns:1fr;gap:28px;padding:32px}}
 @media(max-width:700px){.update-card{padding:24px 20px;border-radius:18px}.update-copy h3{font-size:24px}.update-copy p br{display:none}.update-flow li{padding:11px 14px}}
+
+/* 상단 '정식 출시' 배지: 마우스를 올리면(키보드 포커스 포함) 밝은 노란색으로 바뀝니다.
+   다크 테마는 글자·테두리를 노랗게, 라이트 테마는 흰 바탕에서도 잘 보이도록 배지를 노랗게 칠하고 글자를 짙게 씁니다. */
+.preview-badge{--badge-hot:#fde047;transition:color .18s,border-color .18s,background-color .18s}
+.preview-badge>span:last-child,.preview-badge .status-dot{transition:color .18s}
+.preview-badge:hover,.preview-badge:focus-visible{color:var(--badge-hot);border-color:rgba(253,224,71,.6);background:rgba(253,224,71,.09)}
+.preview-badge:hover>span:last-child,.preview-badge:focus-visible>span:last-child{color:var(--badge-hot)}
+:root[data-theme=light] .preview-badge{--badge-hot:#422006}
+:root[data-theme=light] .preview-badge:hover,:root[data-theme=light] .preview-badge:focus-visible{border-color:#eab308;background:#fde047}
+:root[data-theme=light] .preview-badge:hover .status-dot,:root[data-theme=light] .preview-badge:focus-visible .status-dot{color:#15803d}
