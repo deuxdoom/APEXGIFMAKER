@@ -13,7 +13,7 @@
   <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/latest"><img alt="최신 버전" src="https://img.shields.io/github/v/release/deuxdoom/APEXGIFMAKER?style=flat&amp;logo=github&amp;logoColor=white&amp;label=%EC%B5%9C%EC%8B%A0%20%EB%B2%84%EC%A0%84&amp;labelColor=0b1527&amp;color=0867c4"></a>
   <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases"><img alt="전체 다운로드" src="https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?style=flat&amp;logo=github&amp;logoColor=white&amp;label=%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C&amp;labelColor=0b1527&amp;color=398fe1"></a>
   <img alt="Windows 10/11" src="https://img.shields.io/badge/Windows-10%20%2F%2011-0867c4?style=flat&amp;logo=windows&amp;logoColor=white&amp;labelColor=0b1527">
-  <a href="LICENSE"><img alt="MIT 라이선스" src="https://img.shields.io/badge/%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-MIT-398fe1?style=flat&amp;labelColor=0b1527"></a>
+  <a href="LICENSE"><img alt="라이선스: 무료 · 수정·재배포 금지" src="https://img.shields.io/badge/%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EB%AC%B4%EB%A3%8C%20%C2%B7%20%EC%88%98%EC%A0%95%C2%B7%EC%9E%AC%EB%B0%B0%ED%8F%AC%20%EA%B8%88%EC%A7%80-398fe1?style=flat&amp;labelColor=0b1527"></a>
   <a href="https://github.com/sponsors/deuxdoom"><img alt="후원하기" src="https://img.shields.io/badge/%ED%9B%84%EC%9B%90%ED%95%98%EA%B8%B0-GitHub%20Sponsors-ea4aaa?style=flat&amp;logo=githubsponsors&amp;logoColor=white&amp;labelColor=0b1527"></a>
 </p>
 
@@ -123,7 +123,7 @@
 <details>
 <summary><b>다운로드했는데 실행 파일이 없어요.</b></summary>
 
-GitHub의 `Code → Download ZIP`이나 `Source code (zip)`은 개발용 소스 코드입니다.
+GitHub가 자동으로 붙이는 `Source code (zip)`과 `Code → Download ZIP`에는 안내 문서만 들어 있고 프로그램은 없습니다.
 위의 **Windows ZIP 바로 다운로드** 버튼으로 프로그램을 다시 받은 뒤 전체 압축을 풀어 주세요.
 
 직접 고르려면 [전체 버전 목록](https://github.com/deuxdoom/APEXGIFMAKER/releases)의 **Assets**에서
@@ -136,6 +136,9 @@ GitHub의 `Code → Download ZIP`이나 `Source code (zip)`은 개발용 소스 
 
 Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 있는 안내입니다.
 이 저장소에서 직접 받은 파일인지 확인하고, 실행하기로 결정했다면 **추가 정보 → 실행**을 선택하세요.
+
+공식 배포처는 이 저장소의 [릴리스 페이지](https://github.com/deuxdoom/APEXGIFMAKER/releases)뿐입니다.
+다른 곳에 올라온 파일은 누군가 고쳐 놓았을 수 있으니 받지 마세요.
 
 </details>
 
@@ -189,7 +192,8 @@ Windows에서 아직 신뢰 정보가 충분하지 않은 앱에 표시할 수 �
 - **문제나 개선 제안:** [GitHub Issues](https://github.com/deuxdoom/APEXGIFMAKER/issues)
 - **버전별 변경 내용:** [변경 기록](CHANGELOG.md) · [전체 릴리스](https://github.com/deuxdoom/APEXGIFMAKER/releases)
 - **개발 응원:** [GitHub Sponsors](https://github.com/sponsors/deuxdoom)
-- **라이선스와 출처:** [MIT 라이선스](LICENSE) · [도구·글꼴·아이콘 출처](ATTRIBUTION.txt)
+- **라이선스와 출처:** [사용 허락 조건](LICENSE) · [도구·글꼴·아이콘 출처](ATTRIBUTION.txt)
+  무료로 쓸 수 있지만, 프로그램을 고치거나 다른 곳에 다시 올리는 일(재배포)은 허락하지 않습니다. 소스 코드는 공개하지 않습니다.
 
 개인이 만든 비공식 도구이며 Flydigi와 제휴하거나 공식 지원을 받는 제품이 아닙니다.
 Flydigi와 APEX는 각 권리자의 상표입니다.

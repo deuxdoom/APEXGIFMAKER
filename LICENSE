@@ -1,21 +1,94 @@
-MIT License
+APEX GIF MAKER 사용 허락 조건 (라이선스)
+=========================================
 
-Copyright (c) 2025 Eric Park
+Copyright (c) 2025-2026 Eric Park (deuxdoom). All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+APEX GIF MAKER(이하 "프로그램")와 이 저장소의 문서·그림 등 모든 자료의 저작권은 만든 사람에게 있습니다.
+프로그램은 오픈 소스가 아니며, 아래에서 허락한 범위 안에서만 쓸 수 있습니다.
+이 조건은 2026년 10월 6일부터 배포하는 프로그램과 자료에 적용됩니다.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. 허락하는 것
+
+  - 공식 배포처(https://github.com/deuxdoom/APEXGIFMAKER/releases)에서 받은 프로그램을
+    개인 용도든 영리 용도든 무료로 설치하고 쓸 수 있습니다.
+  - 프로그램으로 만든 GIF 같은 결과물은 사용자가 자유롭게 쓸 수 있습니다.
+    (결과물에 들어간 원본 영상의 권리는 원래 권리자에게 있습니다.)
+  - 공식 배포처나 소개 페이지(https://deuxdoom.github.io/APEXGIFMAKER/)로 연결하는 링크는 자유롭게 알릴 수 있습니다.
+
+
+2. 허락하지 않는 것 (만든 사람의 서면 허락이 없는 경우)
+
+  - 프로그램이나 그 일부를 고치거나(변조) 다른 프로그램에 넣어 쓰는 일
+  - 역설계(리버스 엔지니어링), 디컴파일, 디스어셈블로 소스 코드나 동작 방식을 알아내려는 일
+  - 프로그램을 다른 곳에 다시 올리거나 나누어 주는 일(재배포), 팔거나 빌려주는 일
+  - 저작권 표시와 이 문서를 지우거나 바꾸는 일, 프로그램을 자기가 만든 것처럼 알리는 일
+
+  다만 법률이 강제로 허용하는 행위와, 아래 3번의 자료가 각자의 라이선스로 보장하는 권리는 막지 않습니다.
+
+
+3. 함께 쓰는 도구와 자료
+
+  FFmpeg, Qt for Python(PySide6), Fluent UI System Icons, Pretendard, JetBrains Mono 같은 자료는
+  이 문서가 아니라 각자의 라이선스를 따릅니다. 목록과 라이선스는 ATTRIBUTION.txt에 있습니다.
+  특히 Qt for Python(PySide6)은 LGPL 3 조건에 따라, 프로그램 폴더 안의 Qt·PySide6 라이브러리 파일을
+  다른 판으로 바꿔 넣는 일과 그 결과를 확인(디버깅)하기 위한 역설계를 허락합니다.
+
+
+4. 보증하지 않음과 책임의 한계
+
+  프로그램은 있는 그대로 제공됩니다. 만든 사람은 프로그램이 특정 목적에 맞거나 오류가 없다고 보증하지 않으며,
+  법률이 허용하는 범위에서 프로그램을 쓰거나 쓰지 못해서 생긴 손해에 책임을 지지 않습니다.
+
+
+5. 그 밖에
+
+  - 위 조건을 지키지 않으면 이 허락은 그때부터 효력을 잃습니다.
+  - 허락이 필요한 일은 https://github.com/deuxdoom/APEXGIFMAKER/issues 로 문의해 주세요.
+  - 한국어 원문과 아래 영어 번역의 뜻이 다르면 한국어 원문을 따릅니다.
+
+
+-------------------------------------------------------------------------------
+
+APEX GIF MAKER License (English translation)
+
+Copyright (c) 2025-2026 Eric Park (deuxdoom). All rights reserved.
+
+APEX GIF MAKER (the "Software") and all materials in this repository, including documents and images,
+are owned by the author. The Software is not open source. You may use it only as permitted below.
+These terms apply to the Software and materials distributed on or after October 6, 2026.
+
+1. Permitted
+   - You may install and use the Software obtained from the official release page
+     (https://github.com/deuxdoom/APEXGIFMAKER/releases) free of charge, for personal or commercial purposes.
+   - You may freely use the GIFs and other output you create with the Software.
+     (Rights to the source videos remain with their owners.)
+   - You may freely share links to the official release page or the project site
+     (https://deuxdoom.github.io/APEXGIFMAKER/).
+
+2. Not permitted without the author's written permission
+   - Modifying the Software or any part of it, or incorporating it into other software.
+   - Reverse engineering, decompiling or disassembling the Software to obtain its source code or internals.
+   - Redistributing, uploading elsewhere, selling, renting or lending the Software.
+   - Removing or altering copyright notices or this license, or presenting the Software as your own work.
+
+   This does not restrict anything that applicable law expressly permits, nor any right granted by the
+   licenses of the third-party components listed in section 3.
+
+3. Third-party components
+   FFmpeg, Qt for Python (PySide6), Fluent UI System Icons, Pretendard, JetBrains Mono and other components
+   are governed by their own licenses, listed in ATTRIBUTION.txt, not by this license.
+   In particular, as required by the LGPL 3 for Qt for Python (PySide6), you may replace the Qt and PySide6
+   library files in the program folder with other versions, and reverse engineer the Software to the extent
+   needed to debug such replacements.
+
+4. No warranty and limitation of liability
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+   TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. TO THE EXTENT
+   PERMITTED BY LAW, THE AUTHOR SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF OR INABILITY TO USE
+   THE SOFTWARE.
+
+5. General
+   - This permission terminates automatically if you fail to comply with these terms.
+   - For any use that requires permission, contact the author at https://github.com/deuxdoom/APEXGIFMAKER/issues.
+   - If this translation differs from the Korean original, the Korean original prevails.
