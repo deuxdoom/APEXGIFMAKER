@@ -24,7 +24,7 @@ function setupTheme() {
 // ---------------------------------------------------------------------------
 // 앱 규칙: src/core(config.py, trim.py, timecode.py, gif.py)와 src/ui/widgets/timeline_math.py를 옮겼습니다.
 // ---------------------------------------------------------------------------
-const TRIM_MIN = 1, TRIM_MAX = 30, RECO_MAX = 15;
+const TRIM_MIN = 5, TRIM_MAX = 15;
 const SIZE_MIN = 8, SIZE_MAX = 4096, FPS_MIN = 1, FPS_MAX = 60;
 const DEFAULT_SIZE = { width: 160, height: 80 };
 const INVALID_FILENAME_CHARS = '<>:"/\\|?*';
@@ -901,7 +901,6 @@ function setupSimulator() {
     const length = values.length;
     const frames = estimateFrames(length, state.options.fps);
     $('#sim-frames').textContent = state.options.frames === 'dedupe' ? `최대 ${frames}프레임` : `약 ${frames}프레임`;
-    $('#sim-reco').hidden = !(length > RECO_MAX + 1e-6);
   }
   for (const [key, field] of Object.entries(fields)) {
     const box = field.input.closest('.tf-box');
@@ -1256,7 +1255,7 @@ function setupSimulator() {
   const notes = {
     update: ['업데이트', '앱에서는 GitHub의 최신 릴리스를 확인해, 새 버전이 있으면 바뀐 점과 함께 업데이트 창을 띄웁니다. 켤 때도 자동으로 확인합니다.\n\n웹 체험에서는 확인하지 않습니다.'],
     tools: ['도구 업데이트', '앱에서는 ffmpeg 새 버전을 확인해 SHA-256을 검사한 뒤 bin 폴더에 받습니다. 사용 중이라 바로 바꿀 수 없으면 받아 두었다가 다음에 켤 때 적용합니다.'],
-    about: ['APEX GIF MAKER 정보', 'Flydigi APEX 시리즈 컨트롤러 스크린용 GIF 메이커\n버전 3.1.0 · 웹 체험판\n\n동영상 처리: FFmpeg (LGPL/GPL)\nUI: Qt for Python / PySide6 (LGPL)\nUI 아이콘: Fluent UI System Icons © Microsoft (MIT)\n글꼴: Pretendard, Pretendard JP, JetBrains Mono (SIL OFL 1.1)'],
+    about: ['APEX GIF MAKER 정보', 'Flydigi APEX 시리즈 컨트롤러 스크린용 GIF 메이커\n버전 3.2.0 · 웹 체험판\n\n동영상 처리: FFmpeg (LGPL/GPL)\nUI: Qt for Python / PySide6 (LGPL)\nUI 아이콘: Fluent UI System Icons © Microsoft (MIT)\n글꼴: Pretendard, Pretendard JP, JetBrains Mono (SIL OFL 1.1)'],
   };
   menu.addEventListener('click', (event) => {
     const item = event.target.closest('[role^=menuitem]');

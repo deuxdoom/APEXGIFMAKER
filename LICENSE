@@ -1,94 +1,108 @@
-APEX GIF MAKER 사용 허락 조건 (라이선스)
-=========================================
+APEX GIF MAKER
+Copyright (c) 2025-2026 Eric Park (deuxdoom)
+https://github.com/deuxdoom/APEXGIFMAKER
 
-Copyright (c) 2025-2026 Eric Park (deuxdoom). All rights reserved.
+라이선스: PolyForm Strict License 1.0.0
+무단 수정 금지 · 상업적 이용 금지 · 배포 금지 (만든 사람의 서면 허락이 있는 경우는 제외)
+No modification, no commercial use, no redistribution without the author's written permission.
 
-APEX GIF MAKER(이하 "프로그램")와 이 저장소의 문서·그림 등 모든 자료의 저작권은 만든 사람에게 있습니다.
-프로그램은 오픈 소스가 아니며, 아래에서 허락한 범위 안에서만 쓸 수 있습니다.
-이 조건은 2026년 10월 6일부터 배포하는 프로그램과 자료에 적용됩니다.
-
-
-1. 허락하는 것
-
-  - 공식 배포처(https://github.com/deuxdoom/APEXGIFMAKER/releases)에서 받은 프로그램을
-    개인 용도든 영리 용도든 무료로 설치하고 쓸 수 있습니다.
-  - 프로그램으로 만든 GIF 같은 결과물은 사용자가 자유롭게 쓸 수 있습니다.
-    (결과물에 들어간 원본 영상의 권리는 원래 권리자에게 있습니다.)
-  - 공식 배포처나 소개 페이지(https://deuxdoom.github.io/APEXGIFMAKER/)로 연결하는 링크는 자유롭게 알릴 수 있습니다.
+APEX GIF MAKER(프로그램과 소스 코드, 문서·그림 등 이 저장소의 자료)는 아래 영어 원문인
+"PolyForm Strict License 1.0.0"과 그 앞의 "추가 허락"에 따라 쓸 수 있습니다.
+이 한국어 안내는 이해를 돕기 위한 요약이며, 정식 조건은 영어 원문입니다.
 
 
-2. 허락하지 않는 것 (만든 사람의 서면 허락이 없는 경우)
+한국어 요약
+-----------
 
-  - 프로그램이나 그 일부를 고치거나(변조) 다른 프로그램에 넣어 쓰는 일
-  - 역설계(리버스 엔지니어링), 디컴파일, 디스어셈블로 소스 코드나 동작 방식을 알아내려는 일
-  - 프로그램을 다른 곳에 다시 올리거나 나누어 주는 일(재배포), 팔거나 빌려주는 일
-  - 저작권 표시와 이 문서를 지우거나 바꾸는 일, 프로그램을 자기가 만든 것처럼 알리는 일
+  허락하는 것
+  - 개인적인 사용: 취미, 공부, 개인 오락처럼 돈벌이를 목적으로 하지 않는 사용
+  - 학교, 공공기관, 비영리 단체의 사용
+  - 소스 코드를 읽고, 고치지 않은 그대로 내 PC에서 실행·빌드하는 일
 
-  다만 법률이 강제로 허용하는 행위와, 아래 3번의 자료가 각자의 라이선스로 보장하는 권리는 막지 않습니다.
+  만든 사람의 서면 허락 없이는 할 수 없는 것
+  - 상업적 이용 (돈을 벌기 위한 사용, 회사 업무에 쓰는 일, 판매·유료 서비스)
+  - 프로그램이나 소스 코드를 고치거나, 그것을 바탕으로 새 프로그램을 만드는 일
+  - 프로그램이나 소스 코드를 다른 곳에 다시 올리거나 나누어 주는 일(재배포)
 
-
-3. 함께 쓰는 도구와 자료
-
-  FFmpeg, Qt for Python(PySide6), Fluent UI System Icons, Pretendard, JetBrains Mono 같은 자료는
-  이 문서가 아니라 각자의 라이선스를 따릅니다. 목록과 라이선스는 ATTRIBUTION.txt에 있습니다.
-  특히 Qt for Python(PySide6)은 LGPL 3 조건에 따라, 프로그램 폴더 안의 Qt·PySide6 라이브러리 파일을
-  다른 판으로 바꿔 넣는 일과 그 결과를 확인(디버깅)하기 위한 역설계를 허락합니다.
+  허락이 필요하면 https://github.com/deuxdoom/APEXGIFMAKER/issues 로 문의해 주세요.
 
 
-4. 보증하지 않음과 책임의 한계
+추가 허락 (Additional Permissions)
+----------------------------------
 
-  프로그램은 있는 그대로 제공됩니다. 만든 사람은 프로그램이 특정 목적에 맞거나 오류가 없다고 보증하지 않으며,
-  법률이 허용하는 범위에서 프로그램을 쓰거나 쓰지 못해서 생긴 손해에 책임을 지지 않습니다.
+  1. 프로그램으로 만든 GIF 같은 결과물에는 이 조건이 적용되지 않습니다. 결과물은 자유롭게 쓸 수 있습니다.
+     (결과물에 들어간 원본 영상의 권리는 원래 권리자에게 있습니다.)
+     Output you create with the software, such as GIF files, is not covered by these terms and you may
+     use it freely. Rights to the source videos remain with their owners.
 
+  2. Qt for Python(PySide6)은 LGPL 3 조건에 따라, 프로그램 폴더 안의 Qt·PySide6 라이브러리 파일을
+     다른 판으로 바꿔 넣는 일과 그 결과를 확인(디버깅)하기 위한 역설계를 허락합니다.
+     As required by the LGPL 3, you may replace the Qt and PySide6 library files in the program folder with
+     other versions, and reverse engineer the software to debug such replacements.
 
-5. 그 밖에
-
-  - 위 조건을 지키지 않으면 이 허락은 그때부터 효력을 잃습니다.
-  - 허락이 필요한 일은 https://github.com/deuxdoom/APEXGIFMAKER/issues 로 문의해 주세요.
-  - 한국어 원문과 아래 영어 번역의 뜻이 다르면 한국어 원문을 따릅니다.
+  3. FFmpeg, Qt for Python(PySide6), Fluent UI System Icons, Pretendard, JetBrains Mono 같은 자료는
+     이 문서가 아니라 각자의 라이선스를 따릅니다. 목록과 라이선스는 ATTRIBUTION.txt에 있습니다.
+     Third-party components listed in ATTRIBUTION.txt are governed by their own licenses, not by these terms.
 
 
 -------------------------------------------------------------------------------
 
-APEX GIF MAKER License (English translation)
+# PolyForm Strict License 1.0.0
 
-Copyright (c) 2025-2026 Eric Park (deuxdoom). All rights reserved.
+<https://polyformproject.org/licenses/strict/1.0.0>
 
-APEX GIF MAKER (the "Software") and all materials in this repository, including documents and images,
-are owned by the author. The Software is not open source. You may use it only as permitted below.
-These terms apply to the Software and materials distributed on or after October 6, 2026.
+## Acceptance
 
-1. Permitted
-   - You may install and use the Software obtained from the official release page
-     (https://github.com/deuxdoom/APEXGIFMAKER/releases) free of charge, for personal or commercial purposes.
-   - You may freely use the GIFs and other output you create with the Software.
-     (Rights to the source videos remain with their owners.)
-   - You may freely share links to the official release page or the project site
-     (https://deuxdoom.github.io/APEXGIFMAKER/).
+In order to get any license under these terms, you must agree to them as both strict obligations and conditions to all your licenses.
 
-2. Not permitted without the author's written permission
-   - Modifying the Software or any part of it, or incorporating it into other software.
-   - Reverse engineering, decompiling or disassembling the Software to obtain its source code or internals.
-   - Redistributing, uploading elsewhere, selling, renting or lending the Software.
-   - Removing or altering copyright notices or this license, or presenting the Software as your own work.
+## Copyright License
 
-   This does not restrict anything that applicable law expressly permits, nor any right granted by the
-   licenses of the third-party components listed in section 3.
+The licensor grants you a copyright license for the software to do everything you might do with the software that would otherwise infringe the licensor's copyright in it for any permitted purpose, other than distributing the software or making changes or new works based on the software.
 
-3. Third-party components
-   FFmpeg, Qt for Python (PySide6), Fluent UI System Icons, Pretendard, JetBrains Mono and other components
-   are governed by their own licenses, listed in ATTRIBUTION.txt, not by this license.
-   In particular, as required by the LGPL 3 for Qt for Python (PySide6), you may replace the Qt and PySide6
-   library files in the program folder with other versions, and reverse engineer the Software to the extent
-   needed to debug such replacements.
+## Patent License
 
-4. No warranty and limitation of liability
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-   TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. TO THE EXTENT
-   PERMITTED BY LAW, THE AUTHOR SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF OR INABILITY TO USE
-   THE SOFTWARE.
+The licensor grants you a patent license for the software that covers patent claims the licensor can license, or becomes able to license, that you would infringe by using the software.
 
-5. General
-   - This permission terminates automatically if you fail to comply with these terms.
-   - For any use that requires permission, contact the author at https://github.com/deuxdoom/APEXGIFMAKER/issues.
-   - If this translation differs from the Korean original, the Korean original prevails.
+## Noncommercial Purposes
+
+Any noncommercial purpose is a permitted purpose.
+
+## Personal Uses
+
+Personal use for research, experiment, and testing for the benefit of public knowledge, personal study, private entertainment, hobby projects, amateur pursuits, or religious observance, without any anticipated commercial application, is use for a permitted purpose.
+
+## Noncommercial Organizations
+
+Use by any charitable organization, educational institution, public research organization, public safety or health organization, environmental protection organization, or government institution is use for a permitted purpose regardless of the source of funding or obligations resulting from the funding.
+
+## Fair Use
+
+You may have "fair use" rights for the software under the law. These terms do not limit them.
+
+## No Other Rights
+
+These terms do not allow you to sublicense or transfer any of your licenses to anyone else, or prevent the licensor from granting licenses to anyone else.  These terms do not imply any other licenses.
+
+## Patent Defense
+
+If you make any written claim that the software infringes or contributes to infringement of any patent, your patent license for the software granted under these terms ends immediately. If your company makes such a claim, your patent license ends immediately for work on behalf of your company.
+
+## Violations
+
+The first time you are notified in writing that you have violated any of these terms, or done anything with the software not covered by your licenses, your licenses can nonetheless continue if you come into full compliance with these terms, and take practical steps to correct past violations, within 32 days of receiving notice.  Otherwise, all your licenses end immediately.
+
+## No Liability
+
+***As far as the law allows, the software comes as is, without any warranty or condition, and the licensor will not be liable to you for any damages arising out of these terms or the use or nature of the software, under any kind of legal claim.***
+
+## Definitions
+
+The **licensor** is the individual or entity offering these terms, and the **software** is the software the licensor makes available under these terms.
+
+**You** refers to the individual or entity agreeing to these terms.
+
+**Your company** is any legal entity, sole proprietorship, or other kind of organization that you work for, plus all organizations that have control over, are under the control of, or are under common control with that organization.  **Control** means ownership of substantially all the assets of an entity, or the power to direct its management and policies by vote, contract, or otherwise.  Control can be direct or indirect.
+
+**Your licenses** are all the licenses granted to you for the software under these terms.
+
+**Use** means anything you do with the software requiring one of your licenses.

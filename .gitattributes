@@ -1,0 +1,21 @@
+# 줄 끝(EOL) 정규화: 저장소에는 LF로 담고, 체크아웃할 때는 OS 기본을 따릅니다.
+# (TVerDownloader와 같은 규칙. Windows에서 받으면 CRLF로 풀립니다.)
+* text=auto
+
+# 텍스트로 못 박아 두는 형식. 자동 판별에만 맡기면 드물게 바이너리로 잘못 분류될 수 있습니다.
+*.py    text
+*.spec  text
+*.md    text
+*.txt   text
+*.json  text
+*.yml   text
+*.svg   text
+
+# 폰트·이미지·압축 파일은 한 바이트만 달라져도 쓸 수 없으므로 변환하지 않습니다.
+*.ttf   binary
+*.otf   binary
+*.png   binary
+*.ico   binary
+*.gif   binary
+*.jpg   binary
+*.zip   binary

@@ -13,7 +13,7 @@
   <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/latest"><img alt="최신 버전" src="https://img.shields.io/github/v/release/deuxdoom/APEXGIFMAKER?style=flat&amp;logo=github&amp;logoColor=white&amp;label=%EC%B5%9C%EC%8B%A0%20%EB%B2%84%EC%A0%84&amp;labelColor=0b1527&amp;color=0867c4"></a>
   <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases"><img alt="전체 다운로드" src="https://img.shields.io/github/downloads/deuxdoom/APEXGIFMAKER/total?style=flat&amp;logo=github&amp;logoColor=white&amp;label=%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C&amp;labelColor=0b1527&amp;color=398fe1"></a>
   <img alt="Windows 10/11" src="https://img.shields.io/badge/Windows-10%20%2F%2011-0867c4?style=flat&amp;logo=windows&amp;logoColor=white&amp;labelColor=0b1527">
-  <a href="LICENSE"><img alt="라이선스: 무료 · 수정·재배포 금지" src="https://img.shields.io/badge/%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EB%AC%B4%EB%A3%8C%20%C2%B7%20%EC%88%98%EC%A0%95%C2%B7%EC%9E%AC%EB%B0%B0%ED%8F%AC%20%EA%B8%88%EC%A7%80-398fe1?style=flat&amp;labelColor=0b1527"></a>
+  <a href="LICENSE"><img alt="라이선스: PolyForm Strict 1.0.0 · 무단 수정·상업적 이용·배포 금지" src="https://img.shields.io/badge/%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-PolyForm%20Strict%201.0.0%20%C2%B7%20%EB%AC%B4%EB%8B%A8%20%EC%88%98%EC%A0%95%C2%B7%EC%83%81%EC%97%85%EC%A0%81%20%EC%9D%B4%EC%9A%A9%C2%B7%EB%B0%B0%ED%8F%AC%20%EA%B8%88%EC%A7%80-398fe1?style=flat&amp;labelColor=0b1527"></a>
   <a href="https://github.com/sponsors/deuxdoom"><img alt="후원하기" src="https://img.shields.io/badge/%ED%9B%84%EC%9B%90%ED%95%98%EA%B8%B0-GitHub%20Sponsors-ea4aaa?style=flat&amp;logo=githubsponsors&amp;logoColor=white&amp;labelColor=0b1527"></a>
 </p>
 
@@ -25,12 +25,12 @@
 <!-- <a> 안에 줄바꿈이나 공백을 넣으면 GitHub가 버튼 사이에 밑줄 친 빈칸을 그리므로, 링크는 한 줄로 붙여 씁니다. -->
 <p align="center">
   <a href="https://deuxdoom.github.io/APEXGIFMAKER/"><img src="https://img.shields.io/badge/%EC%86%8C%EA%B0%9C%20%ED%8E%98%EC%9D%B4%EC%A7%80-0b1527?style=for-the-badge" alt="소개 페이지 바로가기"></a>
-  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.1.0/ApexGIFMaker_v310.zip"><img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드"></a>
+  <a href="https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.2.0/ApexGIFMaker_v320.zip"><img src="https://img.shields.io/badge/Windows%20ZIP-%EB%B0%94%EB%A1%9C%20%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C-0867c4?style=for-the-badge&amp;labelColor=044586" alt="Windows용 ZIP 바로 다운로드"></a>
 </p>
 
 <p align="center">
   <b>다운로드 버튼을 누르면 프로그램 ZIP 파일이 바로 내려받아집니다.</b><br>
-  현재 공개 버전: <b>v3.1.0</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
+  현재 공개 버전: <b>v3.2.0</b> · Windows 10/11 x64 · 무료 · 설치 없이 실행
 </p>
 
 <p align="center">
@@ -66,7 +66,8 @@ Flydigi APEX 시리즈 스크린에 넣을 GIF를 만드는 무료 Windows 프�
 | **정밀한 구간 선택** | 시작·끝 손잡이, 타임라인 확대, 시간 직접 입력으로 필요한 장면만 고릅니다. |
 | **변환 전 미리보기** | 시작과 끝 장면, 화면에 들어갈 영역을 크롭 가이드로 확인합니다. |
 | **스크린에 맞춘 출력** | 기본 **160×80 · 12 FPS**에서 시작해 크기·FPS·화면 맞춤 방식을 바꿉니다. |
-| **GIF 품질 조절** | 영상에 맞춘 팔레트, 디더링, 균등·중복 제거 프레임 옵션을 제공합니다. |
+| **GIF 품질 조절** | 영상에 맞춘 256색 팔레트, 디더링, 균등·중복 제거 프레임 옵션을 제공합니다. 160×80처럼 작은 GIF도 화소마다 색을 계산해 원본 색에 가깝게 만듭니다. |
+| **HDR 영상 지원** | HDR10·HLG 영상은 색이 바래지 않도록 보통 화면(SDR) 색으로 자동 변환합니다. 미리보기와 구간 재생도 같은 색으로 보여 줍니다. |
 | **진행·결과 확인** | 변환 진행률을 보고 취소할 수 있으며, 완료된 GIF를 앱에서 바로 재생합니다. |
 | **편리한 관리** | FFmpeg 자동 준비와 최신 버전 유지, 3.0부터 앱 내 업데이트, 다크·라이트·시스템 테마를 지원합니다. |
 | **6개 언어** | 한국어, 영어, 스페인어, 일본어, 중국어 간체·번체를 지원합니다. |
@@ -103,7 +104,7 @@ Flydigi APEX 시리즈 스크린에 넣을 GIF를 만드는 무료 Windows 프�
 4. **저장합니다.** 저장 폴더와 파일 이름을 확인한 뒤 `GIF 생성`을 누릅니다. 완료 창에서 결과를 확인할 수 있습니다.
 5. **컨트롤러에 적용합니다.** Flydigi Space Station의 스크린 설정에서 만든 GIF를 불러옵니다. 메뉴 이름은 버전에 따라 다를 수 있습니다.
 
-**처음에는 짧은 구간으로 만들어 보세요.** 앱에서 선택할 수 있는 길이는 1~30초이며, 15초 이하를 권장합니다.
+**구간 길이는 5~15초 사이에서 고를 수 있습니다.** HDR 영상도 색이 바래지 않도록 자동으로 SDR 색으로 바꿔서 만듭니다.
 파일이 너무 크면 구간을 줄이거나 FPS를 낮추면 됩니다.
 
 <details>
@@ -157,11 +158,11 @@ Flydigi APEX 시리즈 스크린에 넣을 GIF를 만드는 무료 Windows 프�
 <details>
 <summary><b>다운로드했는데 실행 파일이 없어요.</b></summary>
 
-GitHub가 자동으로 붙이는 `Source code (zip)`과 `Code → Download ZIP`에는 안내 문서만 들어 있고 프로그램은 없습니다.
+GitHub가 자동으로 붙이는 `Source code (zip)`과 `Code → Download ZIP`에는 소스 코드만 들어 있고 실행 파일은 없습니다.
 위의 **Windows ZIP 바로 다운로드** 버튼으로 프로그램을 다시 받은 뒤 전체 압축을 풀어 주세요.
 
 직접 고르려면 [전체 버전 목록](https://github.com/deuxdoom/APEXGIFMAKER/releases)의 **Assets**에서
-`ApexGIFMaker_252.zip`, `ApexGIFMaker_v310.zip`처럼 **ApexGIFMaker로 시작하는 ZIP**을 찾으면 됩니다.
+`ApexGIFMaker_252.zip`, `ApexGIFMaker_v320.zip`처럼 **ApexGIFMaker로 시작하는 ZIP**을 찾으면 됩니다.
 
 </details>
 
@@ -237,17 +238,20 @@ Flydigi와 APEX는 각 권리자의 상표입니다.
 
 ## 📜 라이선스 및 저작권
 
-**Copyright © 2025–2026 Eric Park (deuxdoom). All rights reserved.**
+**Copyright © 2025–2026 Eric Park (deuxdoom).**
 
 | 항목 | 내용 |
 | --- | --- |
-| 배포 형태 | 프리웨어 (개인·업무 용도 무료) |
-| 소스 코드 | 비공개 |
+| 라이선스 | [PolyForm Strict 1.0.0](LICENSE) |
+| 사용 | 개인적·비영리 목적은 무료 (학교·공공기관·비영리 단체 포함) |
+| 소스 코드 | 공개 (읽기·고치지 않은 그대로 빌드 가능) |
+| 금지 | **무단 수정 금지 · 상업적 이용 금지 · 배포 금지** (만든 사람의 서면 허락이 있는 경우는 제외) |
 
-무료로 쓸 수 있지만, 프로그램을 고치거나 다른 곳에 다시 올리는 일(재배포)은 허락하지 않습니다. 자세한 조건은 [사용 허락 조건](LICENSE)을 확인하세요.
+프로그램으로 만든 GIF는 자유롭게 쓸 수 있습니다. 허락이 필요하면 [이슈](https://github.com/deuxdoom/APEXGIFMAKER/issues)로 문의해 주세요.
+자세한 조건은 [LICENSE](LICENSE)를 확인하세요.
 
 ### 제3자 구성 요소
 
 도구·글꼴·아이콘에는 각각의 라이선스가 적용됩니다. 출처와 라이선스는 [ATTRIBUTION.txt](ATTRIBUTION.txt)에 정리되어 있습니다.
 
-[windows-download]: https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.1.0/ApexGIFMaker_v310.zip
+[windows-download]: https://github.com/deuxdoom/APEXGIFMAKER/releases/download/v3.2.0/ApexGIFMaker_v320.zip

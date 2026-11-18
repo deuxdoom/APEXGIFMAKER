@@ -71,7 +71,7 @@
   </header>
   <main id="main">
     <section class="hero shell" aria-labelledby="hero-title">
-      <a class="preview-badge" id="release-badge" href="https://github.com/deuxdoom/APEXGIFMAKER/releases/tag/v3.1.0"><span class="status-dot"></span> <span id="release-badge-text">v3.1.0 정식 출시</span> <span aria-hidden="true">↗</span></a>
+      <a class="preview-badge" id="release-badge" href="https://github.com/deuxdoom/APEXGIFMAKER/releases/tag/v3.2.0"><span class="status-dot"></span> <span id="release-badge-text">v3.2.0 정식 출시</span> <span aria-hidden="true">↗</span></a>
       <p class="eyebrow hero-eyebrow">MADE FOR YOUR APEX</p>
       <h1 id="hero-title">작은 스크린에, <br><span>나만의 장면.</span></h1>
       <p class="hero-description">좋아하는 영상에서 필요한 순간만. <br>Flydigi APEX 4·5·6을 위한 GIF를, 쉽고 정교하게.</p>
@@ -80,12 +80,12 @@
     </section>
 
     <section class="playground shell" id="playground" aria-labelledby="playground-title">
-      <h2 class="sr-only" id="playground-title">APEX GIF MAKER 3.1.0 웹 체험</h2>
+      <h2 class="sr-only" id="playground-title">APEX GIF MAKER 3.2.0 웹 체험</h2>
       <div class="app" id="sim" data-app-theme="dark">
         <div class="app-titlebar">
           <img class="app-logo" src="images/applogo.svg" width="22" height="22" alt="">
           <span class="app-name"><b>APEX</b> GIF MAKER</span>
-          <span class="chip">v3.1.0</span>
+          <span class="chip">v3.2.0</span>
           <span class="app-sep" aria-hidden="true"></span>
           <button class="app-btn" id="sim-open" type="button" title="동영상 파일을 엽니다 (Ctrl+O). 창에 파일을 끌어다 놓아도 됩니다."><svg class="fi" aria-hidden="true"><use href="#fi-folder-open"/></svg><span>비디오 열기</span></button>
           <span class="app-video"><b id="sim-video-name">sample_orbit.mp4</b><span class="app-meta" id="sim-video-meta">1280×720 · 30 fps · 00:48.000</span></span>
@@ -140,9 +140,9 @@
             <p class="sr-only" id="sim-announce" aria-live="polite"></p>
             <div class="time-fields">
               <div class="time-field" data-field="start"><label for="sim-field-start">시작</label><span class="tf-box"><button class="tf-nudge" type="button" data-dir="-1" title="−0.1초 (Shift: −1초)" aria-label="시작 −0.1초 (Shift: −1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-left"/></svg></button><input id="sim-field-start" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="00:12.000"><button class="tf-nudge" type="button" data-dir="1" title="+0.1초 (Shift: +1초)" aria-label="시작 +0.1초 (Shift: +1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-right"/></svg></button></span></div>
-              <div class="time-field short" data-field="length" title="구간 길이는 1~30초 사이에서 정할 수 있습니다."><label for="sim-field-length">길이(초)</label><span class="tf-box"><button class="tf-nudge" type="button" data-dir="-1" title="−0.1초 (Shift: −1초)" aria-label="길이 −0.1초 (Shift: −1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-left"/></svg></button><input id="sim-field-length" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="6.00"><button class="tf-nudge" type="button" data-dir="1" title="+0.1초 (Shift: +1초)" aria-label="길이 +0.1초 (Shift: +1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-right"/></svg></button></span></div>
+              <div class="time-field short" data-field="length" title="구간 길이는 5~15초 사이에서 정할 수 있습니다."><label for="sim-field-length">길이(초)</label><span class="tf-box"><button class="tf-nudge" type="button" data-dir="-1" title="−0.1초 (Shift: −1초)" aria-label="길이 −0.1초 (Shift: −1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-left"/></svg></button><input id="sim-field-length" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="6.00"><button class="tf-nudge" type="button" data-dir="1" title="+0.1초 (Shift: +1초)" aria-label="길이 +0.1초 (Shift: +1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-right"/></svg></button></span></div>
               <div class="time-field" data-field="end"><label for="sim-field-end">끝</label><span class="tf-box"><button class="tf-nudge" type="button" data-dir="-1" title="−0.1초 (Shift: −1초)" aria-label="끝 −0.1초 (Shift: −1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-left"/></svg></button><input id="sim-field-end" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="00:18.000"><button class="tf-nudge" type="button" data-dir="1" title="+0.1초 (Shift: +1초)" aria-label="끝 +0.1초 (Shift: +1초)"><svg class="fi" aria-hidden="true"><use href="#fi-chevron-right"/></svg></button></span></div>
-              <span class="field-chips"><span class="chip" id="sim-frames">약 72프레임</span><span class="chip warning" id="sim-reco" hidden>권장 길이(15초) 초과</span></span>
+              <span class="field-chips"><span class="chip" id="sim-frames">약 72프레임</span></span>
             </div>
           </div>
 
@@ -187,7 +187,7 @@
         </div>
         <div class="app-toast" id="sim-toast" role="status" hidden></div>
       </div>
-      <p class="demo-note">위 화면은 v3.1.0 앱을 그대로 옮긴 웹 체험판입니다. 샘플 영상으로만 동작하고 파일은 만들지 않습니다. <br>손잡이를 끌거나 휠로 늘려 보고, 옵션을 바꾼 뒤 <b>GIF 생성</b>을 눌러 결과 창까지 확인해 보세요.</p>
+      <p class="demo-note">위 화면은 v3.2.0 앱을 그대로 옮긴 웹 체험판입니다. 샘플 영상으로만 동작하고 파일은 만들지 않습니다. <br>손잡이를 끌거나 휠로 늘려 보고, 옵션을 바꾼 뒤 <b>GIF 생성</b>을 눌러 결과 창까지 확인해 보세요.</p>
       <noscript><p class="demo-note">웹 체험에는 JavaScript가 필요합니다. 앱 다운로드와 아래 안내는 그대로 이용할 수 있습니다.</p></noscript>
     </section>
 
@@ -197,30 +197,30 @@
       <div class="section-heading"><div><p class="eyebrow">LESS FRICTION. MORE YOU.</p><h2 id="features-title">장면은 취향대로. <br><span class="muted">과정은 간결하게.</span></h2></div><p>3.0.0에서 화면과 내부를 처음부터 다시 만들었습니다. <br>잘라내고, 맞추고, 완성하기까지.</p></div>
       <div class="feature-grid">
         <article class="feature-card wide"><div class="feature-copy"><span class="feature-number">01 / PRECISION</span><h3>놓치고 싶지 않은 <br>그 순간까지.</h3><p>장면이 이어진 타임라인에서 양쪽 손잡이로 시작과 끝을 따로 정하고, 가운데를 끌어 옮기세요. <br>휠로 늘리면 긴 영상도 0.1초 단위로. 시간은 ◀ ▶ 단추나 직접 입력으로 맞춥니다.</p></div><div class="trim-visual" aria-hidden="true"><div class="trim-ruler"><span>0:10</span><span>0:12</span><span>0:14</span><span>0:16</span><span>0:18</span><span>0:20</span></div><div class="trim-track"><span class="trim-selected"><b>6.00초</b><i></i><i></i></span></div><div class="trim-overview"><span></span></div><div class="shortcut"><kbd>휠</kbd><span>확대·축소</span><kbd>Shift</kbd><kbd>휠</kbd><span>좌우 이동</span><kbd>←</kbd><kbd>→</kbd><span>0.1초 이동</span></div></div></article>
-        <article class="feature-card quality"><div class="feature-copy"><span class="feature-number">02 / CLARITY</span><h3>작아져도, <br>장면은 선명하게.</h3><p>구간 전체를 먼저 분석해 256색 팔레트를 만들고, 디더링 방식으로 색 경계를 다듬습니다.</p></div><div class="pixel-art" aria-hidden="true"><div class="pixel-orbit"></div><span>256 COLORS · 3 DITHER MODES</span></div></article>
+        <article class="feature-card quality"><div class="feature-copy"><span class="feature-number">02 / CLARITY</span><h3>작아져도, <br>장면은 선명하게.</h3><p>구간 전체를 먼저 분석해 256색 팔레트를 만들고, 디더링 방식으로 색 경계를 다듬습니다. <br>HDR10·HLG 영상도 색이 바래지 않게 SDR 색으로 자동 변환합니다.</p></div><div class="pixel-art" aria-hidden="true"><div class="pixel-orbit"></div><span>256 COLORS · 3 DITHER MODES</span></div></article>
         <article class="feature-card"><span class="feature-number">03 / FIT</span><div class="fit-visual" aria-hidden="true"><div><span></span></div><em>160 × 80</em></div><h3>잘 맞는 화면.</h3><p>꽉 채우기, 레터박스, 스트레치. <br>꽉 채우기에서는 GIF에 담길 부분을 점선으로 미리 보여 줍니다.</p></article>
         <article class="feature-card"><span class="feature-number">04 / FLOW</span><div class="progress-visual" aria-hidden="true"><span>GIF 변환 중… 64%</span><i></i><b>취소</b></div><h3>기다림도 가볍게.</h3><p>진행률을 보며 언제든 취소하세요. <br>완성된 GIF는 결과 창에서 바로 재생하고 용량·프레임·재생 시간을 확인합니다.</p></article>
         <article class="feature-card"><span class="feature-number">05 / SAVE</span><div class="save-visual" aria-hidden="true"><span>sample_orbit_12000_18000.gif</span><small>영상 이름 + 시작·끝(ms)</small></div><h3>덮어쓸 걱정 없이.</h3><p>파일 이름은 영상과 구간으로 자동으로 붙고, 같은 이름이 있으면 먼저 묻습니다. <br>실패하면 반쯤 만든 파일을 남기지 않습니다.</p></article>
         <article class="feature-card half"><span class="feature-number">06 / LOCAL</span><div class="local-visual" aria-hidden="true"><span class="local-orbit"></span><span class="local-core">PC</span></div><h3>내 영상은 내 PC에.</h3><p>계정도, 영상 업로드도 필요 없습니다. <br>변환은 PC 안의 FFmpeg가 처리하고, FFmpeg는 처음 켤 때 앱이 자동으로 준비합니다.</p></article>
         <article class="feature-card half"><span class="feature-number">07 / YOURS</span><div class="lang-visual" aria-hidden="true"><span>KO</span><span>EN</span><span>ES</span><span>JA</span><span>简</span><span>繁</span><i class="dot-dark"></i><i class="dot-light"></i></div><h3>내 언어, 내 화면색.</h3><p>한국어·영어·스페인어·일본어·중국어 간체·번체 가운데 Windows 언어에 맞춰 고르고, 다크·라이트·시스템 테마를 고릅니다. 창 크기와 위치도 기억합니다.</p></article>
       </div>
-      <p class="section-note">기능 설명은 v3.1.0 기준입니다. 버전별 변경 사항은 <a href="https://github.com/deuxdoom/APEXGIFMAKER/blob/main/CHANGELOG.md">변경 기록</a>에서 확인할 수 있습니다.</p>
+      <p class="section-note">기능 설명은 v3.2.0 기준입니다. 버전별 변경 사항은 <a href="https://github.com/deuxdoom/APEXGIFMAKER/blob/main/CHANGELOG.md">변경 기록</a>에서 확인할 수 있습니다.</p>
     </section>
 
     <section class="section app-section" id="app-preview" aria-labelledby="app-title"><div class="shell">
       <div class="section-heading centered"><p class="eyebrow">A FAMILIAR SPACE. REFINED.</p><h2 id="app-title">작업에 필요한 모든 것. <br><span class="muted">한 화면 안에.</span></h2><p>넓은 프리뷰, 정밀한 타임라인, 명확한 출력 설정. <br>짙은 남색 위에, 필요한 조작만 선명하게.</p></div>
       <figure class="app-figure">
         <div class="screenshot-wrap">
-          <button class="screenshot-button" id="open-screenshot" type="button" aria-label="v3.1.0 앱 화면 크게 보기"><img src="images/app-preview.webp" alt="APEX GIF MAKER v3.1.0 화면. 제목 표시줄 아래에 시작·끝 프리뷰, 구간 선택 타임라인과 시작·길이·끝 입력칸, GIF 옵션과 출력 설정, 로그 줄이 배치되어 있습니다." width="1950" height="1320" loading="lazy" decoding="async"><span class="expand-label"><svg class="icon" aria-hidden="true"><use href="#expand"/></svg> 크게 보기</span></button>
+          <button class="screenshot-button" id="open-screenshot" type="button" aria-label="v3.2.0 앱 화면 크게 보기"><img src="images/app-preview.webp" alt="APEX GIF MAKER v3.2.0 화면. 제목 표시줄 아래에 시작·끝 프리뷰, 구간 선택 타임라인과 시작·길이·끝 입력칸, GIF 옵션과 출력 설정, 로그 줄이 배치되어 있습니다." width="1950" height="1320" loading="lazy" decoding="async"><span class="expand-label"><svg class="icon" aria-hidden="true"><use href="#expand"/></svg> 크게 보기</span></button>
           <ol class="hotspots" aria-hidden="true"><li style="--x:63.1%;--y:3.8%">1</li><li style="--x:47.4%;--y:12.4%">2</li><li style="--x:60%;--y:51.1%">3</li><li style="--x:54.6%;--y:70.4%">4</li><li style="--x:8.8%;--y:76.6%">5</li><li style="--x:64.8%;--y:76.6%">6</li><li style="--x:27.4%;--y:95.2%">7</li></ol>
         </div>
-        <figcaption><span class="status-dot"></span> 실제 앱 캡처 · v3.1.0 · 기본(다크) 테마</figcaption>
+        <figcaption><span class="status-dot"></span> 실제 앱 캡처 · v3.2.0 · 기본(다크) 테마</figcaption>
       </figure>
       <ol class="ui-legend" aria-label="화면 구성">
         <li><b>제목 표시줄</b><span>비디오 열기, 열린 영상의 해상도·FPS·길이·코덱, 설정(테마·언어·업데이트)과 정보.</span></li>
         <li><b>시작·끝 프리뷰</b><span>구간의 첫 장면과 마지막 장면. 꽉 채우기에서는 GIF에 담길 영역을 점선으로 표시합니다.</span></li>
         <li><b>구간 선택 타임라인</b><span>손잡이·가운데 끌기, 휠 확대와 아래 막대로 전체 위치 확인. 구간 재생과 확대 단추.</span></li>
-        <li><b>시작 · 길이 · 끝</b><span>시간 직접 입력과 ◀ ▶ 0.1초(Shift 1초) 조정. 예상 프레임 수와 권장 길이(15초) 안내.</span></li>
+        <li><b>시작 · 길이 · 끝</b><span>시간 직접 입력과 ◀ ▶ 0.1초(Shift 1초) 조정. 예상 프레임 수 안내. 구간은 5~15초.</span></li>
         <li><b>GIF 옵션</b><span>크기(↺ 160×80), FPS, 스케일, 프레임 방식, 디더링과 도움말.</span></li>
         <li><b>출력</b><span>저장 폴더, 자동 파일 이름, GIF 생성·취소와 진행률.</span></li>
         <li><b>로그 · 상태</b><span>마지막 작업 메시지와 FFmpeg 상태. 펼치면 전체 기록을 봅니다.</span></li>
@@ -255,7 +255,7 @@
         <li><span class="step-number">03</span><h3>GIF를 만들고</h3><p>저장 폴더와 파일 이름을 확인한 뒤 ‘GIF 생성’(Ctrl+Enter). 결과 창에서 바로 재생해 봅니다.</p><span class="step-detail">EXPORT</span></li>
         <li><span class="step-number">04</span><h3>APEX에 담으세요</h3><p>완성한 GIF를 Flydigi Space Station의 스크린 설정에서 불러와 컨트롤러에 적용하세요.</p><span class="step-detail">MAKE IT YOURS</span></li>
       </ol>
-      <div class="tip"><span>처음이라면</span><p><b>160 × 80 · 12 FPS · 15초 이하</b>로 시작해 보세요. 고를 수 있는 구간은 1~30초이며, 파일이 크면 구간을 줄이거나 FPS를 낮추면 됩니다. 등록 조건은 사용 중인 컨트롤러·펌웨어와 Space Station에서 확인할 수 있습니다.</p></div>
+      <div class="tip"><span>처음이라면</span><p><b>160 × 80 · 12 FPS · 꽉 채우기</b>로 시작해 보세요. 고를 수 있는 구간은 5~15초이며, 파일이 크면 구간을 줄이거나 FPS를 낮추면 됩니다. 등록 조건은 사용 중인 컨트롤러·펌웨어와 Space Station에서 확인할 수 있습니다.</p></div>
     </section>
 
     <section class="section shell faq-section" id="faq" aria-labelledby="faq-title"><div><p class="eyebrow">GOOD TO KNOW</p><h2 id="faq-title">시작하기 전에.</h2><p class="muted">알아두면 더 간단해집니다.</p></div><div class="faq-list">
@@ -267,7 +267,7 @@
       <details><summary>업데이트는 어떻게 하나요?<span aria-hidden="true">+</span></summary><p>3.0.0부터는 새 버전이 나오면 앱이 알려 주고, ‘지금 업데이트’를 누르면 알아서 바꿔 줍니다. 2.x에는 이 기능이 없으므로 최신 ZIP을 직접 받아 새 폴더에 풀어 주세요. 이전 폴더의 settings.json을 새 폴더로 복사하면 저장 폴더와 GIF 옵션을 이어서 쓸 수 있습니다.</p></details>
       <details><summary>FFmpeg를 받지 못했다고 나와요.<span aria-hidden="true">+</span></summary><p>인터넷 연결을 확인한 뒤 앱을 다시 실행해 보세요. 직접 준비하려면 <a href="https://www.gyan.dev/ffmpeg/builds/">FFmpeg Windows 빌드 배포처</a>에서 ffmpeg-release-essentials.zip을 받고, 압축 안의 bin 폴더에서 ffmpeg.exe와 ffprobe.exe 두 파일만 ApexGIFMaker.exe 옆의 bin 폴더에 넣어 주세요.</p></details>
       <details><summary>설정은 어디에 저장되나요?<span aria-hidden="true">+</span></summary><p>프로그램 폴더의 settings.json에 저장됩니다. 그 폴더에 쓸 수 없다면(예: Program Files) %LOCALAPPDATA%\ApexGIFMaker에 저장합니다. 설정을 처음으로 되돌리려면 앱을 끈 뒤 이 파일을 지우세요.</p></details>
-      <details><summary>무료인가요? Flydigi 공식 앱인가요?<span aria-hidden="true">+</span></summary><p>무료로 쓸 수 있습니다. Flydigi의 공식 제품이 아닌 커뮤니티 제작 도구이며, 소스 코드는 공개하지 않습니다. 프로그램의 수정과 재배포는 금지되어 있으니, 이 페이지나 GitHub 릴리스에서 받아 주세요. 변경 사항은 변경 기록에서 확인할 수 있습니다.</p></details>
+      <details><summary>무료인가요? Flydigi 공식 앱인가요?<span aria-hidden="true">+</span></summary><p>개인적·비영리 목적으로는 무료로 쓸 수 있습니다. Flydigi의 공식 제품이 아닌 커뮤니티 제작 도구이며, 소스 코드는 GitHub에 공개되어 있습니다. 라이선스는 PolyForm Strict 1.0.0이며, <b>무단 수정·상업적 이용·배포는 금지</b>되어 있으니 프로그램은 이 페이지나 GitHub 릴리스에서 받아 주세요. 만든 GIF는 자유롭게 쓸 수 있습니다.</p></details>
     </div></section>
 
     <section class="download-section shell" id="download" aria-labelledby="download-title"><div class="download-card"><img class="download-logo" src="images/applogo.svg" width="100" height="100" alt="" loading="lazy"><p class="eyebrow">YOUR SCREEN. YOUR MOMENT.</p><h2 id="download-title">이제, 내 장면을 담을 차례.</h2><p>작은 스크린이 조금 더 나다워지는 시간.</p><a class="button primary" href="https://github.com/deuxdoom/APEXGIFMAKER/releases/latest" data-download><svg class="icon" aria-hidden="true"><use href="#download-icon"/></svg> Windows용 다운로드</a><p class="release-meta" id="release-meta" aria-live="polite">GitHub 최신 안정 버전 · 무료 · Windows 10/11 64비트</p><p class="release-sha" id="release-sha" hidden>SHA-256 <code id="release-sha-value"></code></p>
@@ -276,7 +276,7 @@
   </main>
   <footer class="shell footer"><div><a class="brand" href="#"><img src="images/applogo.svg" width="30" height="30" alt=""><span>APEX <b>GIF MAKER</b></span></a><p>Built by SAKURA. Made for your moments.</p></div><nav aria-label="프로젝트 링크"><a href="https://github.com/deuxdoom/APEXGIFMAKER/issues">문제 신고</a><a href="https://github.com/deuxdoom/APEXGIFMAKER/blob/main/CHANGELOG.md">변경 기록</a><a href="https://github.com/sponsors/deuxdoom">개발 후원</a><a href="https://github.com/deuxdoom/APEXGIFMAKER/blob/main/LICENSE">라이선스</a></nav><p class="legal">Flydigi와 APEX는 각 권리자의 상표입니다. 이 프로젝트는 Flydigi와 제휴하거나 공식 지원을 받는 제품이 아닙니다.</p></footer>
 
-  <dialog id="screenshot-dialog" aria-label="APEX GIF MAKER v3.1.0 화면 크게 보기"><form method="dialog"><button class="icon-button" aria-label="화면 닫기"><svg class="icon" aria-hidden="true"><use href="#close"/></svg></button></form><img src="images/app-preview.webp" alt="APEX GIF MAKER v3.1.0 전체 화면" width="1950" height="1320"><p>APEX GIF MAKER v3.1.0 · 실제 앱 캡처</p></dialog>
+  <dialog id="screenshot-dialog" aria-label="APEX GIF MAKER v3.2.0 화면 크게 보기"><form method="dialog"><button class="icon-button" aria-label="화면 닫기"><svg class="icon" aria-hidden="true"><use href="#close"/></svg></button></form><img src="images/app-preview.webp" alt="APEX GIF MAKER v3.2.0 전체 화면" width="1950" height="1320"><p>APEX GIF MAKER v3.2.0 · 실제 앱 캡처</p></dialog>
 
   <dialog class="app-dialog" id="sim-message" data-app-theme="dark" aria-labelledby="sim-message-title" aria-describedby="sim-message-text">
     <div class="app-dialog-bar"><img src="images/applogo.svg" width="18" height="18" alt=""><span id="sim-message-title">알림</span><button class="app-tool" type="button" data-close title="닫기" aria-label="닫기"><svg class="fi" aria-hidden="true"><use href="#fi-dismiss"/></svg></button></div>

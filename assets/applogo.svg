@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <title>ApexGIFMaker — angular APEX 6 controller mark</title>
+  <desc>APEX 6 inspired angular silhouette, asymmetric analog sticks, a faceted dish D-pad, four face buttons and a prominent white Flydigi emblem. Three flat blue tones and white on a transparent background.</desc>
+  <defs>
+    <path id="shell" d="M153 103H359L405 119L434 156L456 225L482 344L478 373L457 397L431 403L412 389L349 315L326 299H186L163 315L100 389L81 403L55 397L34 373L30 344L56 225L78 156L107 119Z"/>
+    <path id="flydigi" d="M22 31L82 56L93 75L87 86L75 67L52 59L79 102L74 110ZM171 31L109 56L78 115L95 162L88 117L118 67L140 59L114 101L119 110ZM105 98L115 117L98 162L105 117L100 108Z"/>
+    <path id="stickBase" d="M-16-37H16L37-16V16L16 37H-16L-37 16V-16Z"/>
+    <path id="stickTop" d="M-12-27H12L27-12V12L12 27H-12L-27 12V-12Z"/>
+    <path id="button" d="M-5-12H5L12-5V5L5 12H-5L-12 5V-5Z"/>
+  </defs>
+  <!-- Broad planes provide depth without gradients, strokes or raster effects. -->
+  <use xlink:href="#shell" fill="#044586" transform="translate(0 11)"/>
+  <use xlink:href="#shell" fill="#0867C4"/>
+  <path d="M153 103H359L405 119L422 141L386 129L351 120H161L126 129L96 157L72 233L48 345L55 372L81 390L100 389L81 403L55 397L34 373L30 344L56 225L78 156L107 119Z" fill="#398FE1"/>
+  <path d="M405 119L434 156L456 225L482 344L478 373L457 397L431 403L412 389L431 390L457 372L464 345L440 233L416 157Z" fill="#044586"/>
+  <path d="M48 345L102 285L159 310L95 380L81 390L55 372Z" fill="#044586"/>
+  <path d="M464 345L410 285L353 310L417 380L431 390L457 372Z" fill="#044586"/>
+  <path d="M102 285L176 284H336L410 285L353 310L326 291H186L159 310Z" fill="#398FE1"/>
+  <!-- Large brand mark stays in the central upper face, clear of the controls. -->
+  <use xlink:href="#flydigi" fill="#FFFFFF" transform="translate(164.325 95) scale(.95)"/>
+  <!-- Asymmetric analog sticks: upper left and lower right. -->
+  <g transform="translate(134 186)">
+    <use xlink:href="#stickBase" fill="#044586"/>
+    <use xlink:href="#stickTop" fill="#398FE1" transform="translate(0 -5)"/>
+    <path d="M-12-32H12L27-17L17-14L9-23H-9L-17-14L-27-17Z" fill="#0867C4"/>
+  </g>
+  <g transform="translate(320 259)">
+    <use xlink:href="#stickBase" fill="#044586"/>
+    <use xlink:href="#stickTop" fill="#398FE1" transform="translate(0 -5)"/>
+    <path d="M-12-32H12L27-17L17-14L9-23H-9L-17-14L-27-17Z" fill="#0867C4"/>
+  </g>
+  <!-- D-pad: four broad facets form the APEX-style dish and cross. -->
+  <g transform="translate(186 259)">
+    <path d="M-15-33H15L34-14V16L15 35H-15L-34 16V-14Z" fill="#044586"/>
+    <path d="M-14-35H14L33-16V12L14 31H-14L-33 12V-16Z" fill="#398FE1"/>
+    <path d="M-14-35L-9-11L-33-16ZM14-35L9-11L33-16ZM33 12L9 7L14 31ZM-33 12L-9 7L-14 31Z" fill="#0867C4"/>
+  </g>
+  <!-- Face buttons retain their diamond layout without letters. -->
+  <g fill="#044586" transform="translate(0 4)">
+    <use xlink:href="#button" transform="translate(382 156)"/><use xlink:href="#button" transform="translate(358 180)"/>
+    <use xlink:href="#button" transform="translate(406 180)"/><use xlink:href="#button" transform="translate(382 204)"/>
+  </g>
+  <g fill="#398FE1">
+    <use xlink:href="#button" transform="translate(382 156)"/><use xlink:href="#button" transform="translate(358 180)"/>
+    <use xlink:href="#button" transform="translate(406 180)"/><use xlink:href="#button" transform="translate(382 204)"/>
+  </g>
+</svg>
